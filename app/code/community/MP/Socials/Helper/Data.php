@@ -52,6 +52,16 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     protected $authProvider;
 
     /**
+     * @var array
+     */
+    protected $authProviders = [
+        self::GOOGLE_PROVIDER,
+        self::FACEBOOK_PROVIDER,
+        self::TWITTER_PROVIDER,
+        self::LINKEDIN_PROVIDER
+    ];
+
+    /**
      * @const string
      */
     protected $accountIdField;
@@ -62,6 +72,7 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     protected $accountTokenField;
 
     /**
+     * @todo Not implemented
      * @return bool
      */
     public function isEnabled()
@@ -70,11 +81,32 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * @return array
+     */
+    public function getAllSocialOptions()
+    {
+        $options = [];
+
+        foreach ($this->authProviders as $authProvider) {
+            $config = Mage::getStoreConfig('mp_socials/' . $authProvider);
+
+            if (((bool) $config['enabled']) !== true) {
+                continue;
+            }
+
+            $options[$authProvider] = $config;
+        }
+
+        return $options;
+    }
+
+    /**
      * @return $this
      */
     public function addCsrf()
     {
-        $this->getCustomerSession()->setData($this->authProvider . '_csrf', md5(uniqid(rand(), true)));
+        $uniqueHash = Mage::helper('core')->uniqHash($this->getWebsiteId() . '_' . $this->getStoreId() . '_');
+        $this->getCustomerSession()->setData($this->authProvider . '_csrf', $uniqueHash);
 
         return $this;
     }
@@ -271,7 +303,7 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     public function disconnect($customer)
     {
         /** @var MP_Socials_Model_Info $info */
-        $info = Mage::getSingleton('mp_socials/' . $this->authProvider . '_info');
+        $info = Mage::getSingleton(sprintf('mp_socials/%s_info/', $this->authProvider));
 
         try {
             $info->setAccessToken(unserialize($customer->getData($this->accountTokenField)));
@@ -340,11 +372,35 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * @return Mage_Core_Model_Store
+     */
+    public function getStore()
+    {
+        return Mage::app()->getStore();
+    }
+
+    /**
      * @return int
      */
     public function getStoreId()
     {
-        return Mage::app()->getStore()->getId();
+        return $this->getStore()->getId();
+    }
+
+    /**
+     * @return Mage_Core_Model_Website
+     */
+    public function getWebsite()
+    {
+        return $this->getStore()->getWebsite();
+    }
+
+    /**
+     * @return int
+     */
+    public function getWebsiteId()
+    {
+        return $this->getWebsite()->getId();
     }
 
     /**

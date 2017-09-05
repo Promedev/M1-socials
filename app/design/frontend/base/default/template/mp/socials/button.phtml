@@ -26,7 +26,10 @@
 ?>
 <?php /** @var MP_Socials_Block_Button $this */ ?>
 <div class="buttons-set">
-    <button type="button" class="button btn btn-primary btn-lg <?php echo $this->getAuthProvider() ?>" title="<?php echo $this->escapeHtml($this->getButtonTitle()) ?>" onclick="setLocation('<?php echo $this->escapeUrl($this->getButtonUrl()) ?>')">
+    <button type="button" class="button btn btn-primary btn-lg <?php echo $this->getAuthProvider() ?>" style="background-color: <?php echo $this->getColor() ?>" title="<?php echo $this->escapeHtml($this->getButtonTitle()) ?>" onclick="setLocation('<?php echo $this->escapeUrl($this->getButtonUrl()) ?>')">
+        <?php if ($iconClass = $this->getIconClass()) : ?>
+            <i class="<?php echo $iconClass ?>"></i>
+        <?php endif ?>
         <?php echo $this->escapeHtml($this->getButtonTitle()) ?>
     </button>
 </div>

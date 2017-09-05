@@ -28,7 +28,6 @@
  * Class MP_Socials_Block_Button
  *
  * @method $this setAuthProvider(string $value)
- * @method string getAuthProvider()
  * @method $this setButtonTitle(string $value)
  * @method string getButtonTitle()
  *
@@ -64,6 +63,40 @@ class MP_Socials_Block_Button extends Mage_Core_Block_Template
     }
 
     /**
+     * Get hex or rgb color
+     *
+     * @return string
+     */
+    public function getColor()
+    {
+        return $this->getConfig('button_color') ?: 'inherit';
+    }
+
+    /**
+     * Get icon class
+     *
+     * @return string
+     */
+    public function getIconClass()
+    {
+        return $this->getConfig('icon_class');
+    }
+
+    /**
+     * @return string
+     */
+    public function getAuthProvider()
+    {
+        $authProvider = trim(strtolower($this->_getData('auth_provider')));
+
+        if (!$authProvider) {
+            Mage::throwException($this->__('Auth Provider is empty.'));
+        }
+
+        return $authProvider;
+    }
+
+    /**
      * @return string
      */
     protected function _toHtml()
@@ -82,5 +115,14 @@ class MP_Socials_Block_Button extends Mage_Core_Block_Template
         $this->client->setState($this->helper()->getCsrf());
 
         return parent::_toHtml();
+    }
+
+    /**
+     * @param string $key
+     * @return string
+     */
+    protected function getConfig($key)
+    {
+        return Mage::getStoreConfig(sprintf('mp_socials/%s/%s', $this->getAuthProvider(), $key));
     }
 }
