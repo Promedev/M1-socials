@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Merchant Protocol
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Merchant Protocol Commercial License (MPCL 1.0)
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://merchantprotocol.com/commercial-license/
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to info@merchantprotocol.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade to newer
+ * versions in the future. If you wish to customize the extension for your
+ * needs please refer to http://www.merchantprotocol.com for more information.
+ *
+ * @category   MP
+ * @package    MP_Socials
+ * @copyright  Copyright (c) 2006-2017 Merchant Protocol LLC. and affiliates (https://merchantprotocol.com/)
+ * @license    https://merchantprotocol.com/commercial-license/  Merchant Protocol Commercial License (MPCL 1.0)
+ */
+-->
+<layout>
+    <customer_account_login>
+        <reference name="customer_form_login">
+            <reference name="form.additional.info">
+                <block type="mp_socials/button" name="socials.google.login.button">
+                    <action method="setAuthProvider"><value>google</value></action>
+                    <action method="setButtonTitle" translate="value"><value>Connect with Google</value></action>
+                </block>
+                <block type="mp_socials/button" name="socials.facebook.login.button">
+                    <action method="setAuthProvider"><value>facebook</value></action>
+                    <action method="setButtonTitle" translate="value"><value>Connect with Facebook</value></action>
+                </block>
+                <block type="mp_socials/button" name="socials.twitter.login.button">
+                    <action method="setAuthProvider"><value>twitter</value></action>
+                    <action method="setButtonTitle" translate="value"><value>Connect with Twitter</value></action>
+                </block>
+                <block type="mp_socials/button" name="socials.linkedin.login.button">
+                    <action method="setAuthProvider"><value>linkedin</value></action>
+                    <action method="setButtonTitle" translate="value"><value>Connect with LinkedIn</value></action>
+                </block>
+            </reference>
+        </reference>
+    </customer_account_login>
+</layout>

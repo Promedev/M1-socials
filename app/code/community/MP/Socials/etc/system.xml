@@ -1,0 +1,310 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Merchant Protocol
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Merchant Protocol Commercial License (MPCL 1.0)
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://merchantprotocol.com/commercial-license/
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to info@merchantprotocol.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade to newer
+ * versions in the future. If you wish to customize the extension for your
+ * needs please refer to http://www.merchantprotocol.com for more information.
+ *
+ * @category   MP
+ * @package    MP_Socials
+ * @copyright  Copyright (c) 2006-2017 Merchant Protocol LLC. and affiliates (https://merchantprotocol.com/)
+ * @license    https://merchantprotocol.com/commercial-license/  Merchant Protocol Commercial License (MPCL 1.0)
+ */
+-->
+<config>
+    <tabs>
+        <mp translate="label" module="mp_socials">
+            <label>Merchant Protocol</label>
+            <sort_order>100</sort_order>
+        </mp>
+    </tabs>
+    <sections>
+        <mp_socials translate="label" module="mp_socials">
+            <label>Socials</label>
+            <tab>mp</tab>
+            <sort_order>100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <groups>
+                <google translate="label" module="mp_socials">
+                    <label>Google Options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>120</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label" module="mp_socials">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <client_id translate="label" module="mp_socials">
+                            <label>Google API Client ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                            <validate>required-entry</validate>
+                        </client_id>
+                        <client_secret translate="label" module="mp_socials">
+                            <label>Google API Client Secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                            <validate>required-entry</validate>
+                        </client_secret>
+                        <links translate="label" module="mp_socials">
+                            <label>Links</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>mp_socials/google_adminhtml_system_config_form_field_links</frontend_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </links>
+                        <origin translate="label" module="mp_socials">
+                            <label>JavaScript Origins</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>mp_socials/adminhtml_system_config_form_field_origins</frontend_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </origin>
+                        <redirect translate="label" module="mp_socials">
+                            <label>Redirect URIs</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>mp_socials/google_adminhtml_system_config_form_field_redirects</frontend_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </redirect>
+                    </fields>
+                </google>
+                <facebook translate="label" module="mp_socials">
+                    <label>Facebook Options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>130</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label" module="mp_socials">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <client_id translate="label" module="mp_socials">
+                            <label>Facebook App ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                            <validate>required-entry</validate>
+                        </client_id>
+                        <client_secret translate="label" module="mp_socials">
+                            <label>Facebook App Secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                            <validate>required-entry</validate>
+                        </client_secret>
+                        <links translate="label" module="mp_socials">
+                            <label>Links</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>mp_socials/facebook_adminhtml_system_config_form_field_links</frontend_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </links>
+                        <origin translate="label" module="mp_socials">
+                            <label>App Domains</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>mp_socials/adminhtml_system_config_form_field_origins</frontend_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </origin>
+                        <redirect translate="label" module="mp_socials">
+                            <label>Site URL</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>mp_socials/facebook_adminhtml_system_config_form_field_redirects</frontend_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </redirect>
+                    </fields>
+                </facebook>
+                <twitter translate="label" module="mp_socials">
+                    <label>Twitter Options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>140</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label" module="mp_socials">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <client_id translate="label" module="mp_socials">
+                            <label>Consumer Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                            <validate>required-entry</validate>
+                        </client_id>
+                        <client_secret translate="label" module="mp_socials">
+                            <label>Consumer Secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                            <validate>required-entry</validate>
+                        </client_secret>
+                        <links translate="label" module="mp_socials">
+                            <label>Links</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>mp_socials/twitter_adminhtml_system_config_form_field_links</frontend_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </links>
+                        <origin translate="label" module="mp_socials">
+                            <label>Website</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>mp_socials/adminhtml_system_config_form_field_origins</frontend_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </origin>
+                        <redirect translate="label" module="mp_socials">
+                            <label>Callback URL</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>mp_socials/twitter_adminhtml_system_config_form_field_redirects</frontend_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </redirect>
+                    </fields>
+                </twitter>
+                <linkedin translate="label" module="mp_socials">
+                    <label>LinkedIn Options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>150</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label" module="mp_socials">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <client_id translate="label" module="mp_socials">
+                            <label>LinkedIn API Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                            <validate>required-entry</validate>
+                        </client_id>
+                        <client_secret translate="label" module="mp_socials">
+                            <label>LinkedIn Secret Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                            <validate>required-entry</validate>
+                        </client_secret>
+                        <links translate="label" module="mp_socials">
+                            <label>Links</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>mp_socials/linkedin_adminhtml_system_config_form_field_links</frontend_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </links>
+                        <origin translate="label" module="mp_socials">
+                            <label>Website URL</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>mp_socials/adminhtml_system_config_form_field_origins</frontend_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </origin>
+                        <redirect translate="label" module="mp_socials">
+                            <label>OAuth 2.0 Redirect URLs</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>mp_socials/linkedin_adminhtml_system_config_form_field_redirects</frontend_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </redirect>
+                    </fields>
+                </linkedin>
+            </groups>
+        </mp_socials>
+    </sections>
+</config>

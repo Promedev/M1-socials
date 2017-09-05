@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Merchant Protocol
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Merchant Protocol Commercial License (MPCL 1.0)
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://merchantprotocol.com/commercial-license/
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to info@merchantprotocol.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade to newer
+ * versions in the future. If you wish to customize the extension for your
+ * needs please refer to http://www.merchantprotocol.com for more information.
+ *
+ * @category   MP
+ * @package    MP_Socials
+ * @copyright  Copyright (c) 2006-2017 Merchant Protocol LLC. and affiliates (https://merchantprotocol.com/)
+ * @license    https://merchantprotocol.com/commercial-license/  Merchant Protocol Commercial License (MPCL 1.0)
+ */
+-->
+<config>
+    <modules>
+        <MP_Socials>
+            <version>1.0.0.0</version>
+            <name>Reviews</name>
+            <repository>https://github.com/merchantprotocol/M1-socials.git</repository>
+        </MP_Socials>
+    </modules>
+    <global>
+        <models>
+            <mp_socials>
+                <class>MP_Socials_Model</class>
+            </mp_socials>
+        </models>
+        <blocks>
+            <mp_socials>
+                <class>MP_Socials_Block</class>
+            </mp_socials>
+        </blocks>
+        <helpers>
+            <mp_socials>
+                <class>MP_Socials_Helper</class>
+            </mp_socials>
+        </helpers>
+        <resources>
+            <mp_socials_setup>
+                <setup>
+                    <module>MP_Socials</module>
+                    <class>MP_Socials_Model_Resource_Setup</class>
+                </setup>
+            </mp_socials_setup>
+        </resources>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <mp_socials>
+                    <file>mp/socials/default.xml</file>
+                </mp_socials>
+            </updates>
+        </layout>
+        <routers>
+            <mp_socials>
+                <use>standard</use>
+                <args>
+                    <module>MP_Socials</module>
+                    <frontName>socials</frontName>
+                </args>
+            </mp_socials>
+        </routers>
+    </frontend>
+    <default>
+        <mp_socials>
+            <google>
+                <enabled>0</enabled>
+            </google>
+            <facebook>
+                <enabled>0</enabled>
+            </facebook>
+            <twitter>
+                <enabled>0</enabled>
+            </twitter>
+            <linkedin>
+                <enabled>0</enabled>
+            </linkedin>
+        </mp_socials>
+    </default>
+</config>
