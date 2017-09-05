@@ -83,7 +83,7 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * @return array
      */
-    public function getAllSocialOptions()
+    public function getSocialOptions()
     {
         $options = [];
 

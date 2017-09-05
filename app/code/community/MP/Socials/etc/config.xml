@@ -80,21 +80,25 @@
         <mp_socials>
             <google>
                 <enabled>0</enabled>
+                <title>Google</title>
                 <icon_class>fa fa-google</icon_class>
                 <button_color>#DF4A32</button_color>
             </google>
             <facebook>
                 <enabled>0</enabled>
+                <title>Facebook</title>
                 <icon_class>fa fa-facebook</icon_class>
                 <button_color>#39579A</button_color>
             </facebook>
             <twitter>
                 <enabled>0</enabled>
+                <title>Twitter</title>
                 <icon_class>fa fa-twitter</icon_class>
                 <button_color>#1DA1F2</button_color>
             </twitter>
             <linkedin>
                 <enabled>0</enabled>
+                <title>LinkedIn</title>
                 <icon_class>fa fa-linkedin</icon_class>
                 <button_color>#0077B5</button_color>
             </linkedin>

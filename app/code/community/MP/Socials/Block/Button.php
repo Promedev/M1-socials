@@ -29,7 +29,6 @@
  *
  * @method $this setAuthProvider(string $value)
  * @method $this setButtonTitle(string $value)
- * @method string getButtonTitle()
  *
  * @category   MP
  * @package    MP_Socials
@@ -52,6 +51,16 @@ class MP_Socials_Block_Button extends Mage_Core_Block_Template
         parent::_construct();
 
         $this->setTemplate('mp/socials/button.phtml');
+    }
+
+    /**
+     * @return string
+     */
+    public function getButtonTitle()
+    {
+        return $this->getConfig('title')
+            ? $this->__('Connect with %s', $this->getConfig('title'))
+            : $this->_getData('button_title');
     }
 
     /**

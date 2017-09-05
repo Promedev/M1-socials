@@ -57,10 +57,20 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </enabled>
+                        <title translate="label" module="mp_socials">
+                            <label>Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                            <validate>required-entry</validate>
+                        </title>
                         <username translate="label" module="mp_socials">
                             <label>Username</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>20</sort_order>
+                            <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -70,7 +80,7 @@
                         <password translate="label" module="mp_socials">
                             <label>Password</label>
                             <frontend_type>password</frontend_type>
-                            <sort_order>30</sort_order>
+                            <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -80,7 +90,7 @@
                         <profile_link translate="label" module="mp_socials">
                             <label>Profile Link</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>40</sort_order>
+                            <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -90,7 +100,7 @@
                         <review_link translate="label" module="mp_socials">
                             <label>Review Link</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>50</sort_order>
+                            <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -100,7 +110,7 @@
                         <icon_class translate="label" module="mp_socials">
                             <label>Icon Class</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>60</sort_order>
+                            <sort_order>70</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -109,7 +119,7 @@
                         <button_color translate="label" module="mp_socials">
                             <label>Button Color</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>70</sort_order>
+                            <sort_order>80</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -119,7 +129,7 @@
                         <client_id translate="label" module="mp_socials">
                             <label>Google API Client ID</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>80</sort_order>
+                            <sort_order>90</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -129,7 +139,7 @@
                         <client_secret translate="label" module="mp_socials">
                             <label>Google API Client Secret</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>90</sort_order>
+                            <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -140,7 +150,7 @@
                             <label>Links</label>
                             <frontend_type>label</frontend_type>
                             <frontend_model>mp_socials/google_adminhtml_system_config_form_field_links</frontend_model>
-                            <sort_order>100</sort_order>
+                            <sort_order>110</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -149,7 +159,7 @@
                             <label>JavaScript Origins</label>
                             <frontend_type>label</frontend_type>
                             <frontend_model>mp_socials/adminhtml_system_config_form_field_origins</frontend_model>
-                            <sort_order>110</sort_order>
+                            <sort_order>120</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -158,7 +168,7 @@
                             <label>Redirect URIs</label>
                             <frontend_type>label</frontend_type>
                             <frontend_model>mp_socials/google_adminhtml_system_config_form_field_redirects</frontend_model>
-                            <sort_order>120</sort_order>
+                            <sort_order>130</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -182,10 +192,20 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </enabled>
+                        <title translate="label" module="mp_socials">
+                            <label>Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                            <validate>required-entry</validate>
+                        </title>
                         <username translate="label" module="mp_socials">
                             <label>Username</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>20</sort_order>
+                            <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -195,7 +215,7 @@
                         <password translate="label" module="mp_socials">
                             <label>Password</label>
                             <frontend_type>password</frontend_type>
-                            <sort_order>30</sort_order>
+                            <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -205,7 +225,7 @@
                         <profile_link translate="label" module="mp_socials">
                             <label>Profile Link</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>40</sort_order>
+                            <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -215,7 +235,7 @@
                         <review_link translate="label" module="mp_socials">
                             <label>Review Link</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>50</sort_order>
+                            <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -225,7 +245,7 @@
                         <icon_class translate="label" module="mp_socials">
                             <label>Icon Class</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>60</sort_order>
+                            <sort_order>70</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -234,7 +254,7 @@
                         <button_color translate="label" module="mp_socials">
                             <label>Button Color</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>70</sort_order>
+                            <sort_order>80</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -244,7 +264,7 @@
                         <client_id translate="label" module="mp_socials">
                             <label>Facebook App ID</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>80</sort_order>
+                            <sort_order>90</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -254,7 +274,7 @@
                         <client_secret translate="label" module="mp_socials">
                             <label>Facebook App Secret</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>90</sort_order>
+                            <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -265,7 +285,7 @@
                             <label>Links</label>
                             <frontend_type>label</frontend_type>
                             <frontend_model>mp_socials/facebook_adminhtml_system_config_form_field_links</frontend_model>
-                            <sort_order>100</sort_order>
+                            <sort_order>110</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -274,7 +294,7 @@
                             <label>App Domains</label>
                             <frontend_type>label</frontend_type>
                             <frontend_model>mp_socials/adminhtml_system_config_form_field_origins</frontend_model>
-                            <sort_order>110</sort_order>
+                            <sort_order>120</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -283,7 +303,7 @@
                             <label>Site URL</label>
                             <frontend_type>label</frontend_type>
                             <frontend_model>mp_socials/facebook_adminhtml_system_config_form_field_redirects</frontend_model>
-                            <sort_order>120</sort_order>
+                            <sort_order>130</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -307,10 +327,20 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </enabled>
+                        <title translate="label" module="mp_socials">
+                            <label>Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                            <validate>required-entry</validate>
+                        </title>
                         <username translate="label" module="mp_socials">
                             <label>Username</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>20</sort_order>
+                            <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -320,7 +350,7 @@
                         <password translate="label" module="mp_socials">
                             <label>Password</label>
                             <frontend_type>password</frontend_type>
-                            <sort_order>30</sort_order>
+                            <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -330,7 +360,7 @@
                         <profile_link translate="label" module="mp_socials">
                             <label>Profile Link</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>40</sort_order>
+                            <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -340,7 +370,7 @@
                         <review_link translate="label" module="mp_socials">
                             <label>Review Link</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>50</sort_order>
+                            <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -350,7 +380,7 @@
                         <icon_class translate="label" module="mp_socials">
                             <label>Icon Class</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>60</sort_order>
+                            <sort_order>70</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -359,7 +389,7 @@
                         <button_color translate="label" module="mp_socials">
                             <label>Button Color</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>70</sort_order>
+                            <sort_order>80</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -369,7 +399,7 @@
                         <client_id translate="label" module="mp_socials">
                             <label>Consumer Key</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>80</sort_order>
+                            <sort_order>90</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -379,7 +409,7 @@
                         <client_secret translate="label" module="mp_socials">
                             <label>Consumer Secret</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>90</sort_order>
+                            <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -390,7 +420,7 @@
                             <label>Links</label>
                             <frontend_type>label</frontend_type>
                             <frontend_model>mp_socials/twitter_adminhtml_system_config_form_field_links</frontend_model>
-                            <sort_order>100</sort_order>
+                            <sort_order>110</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -399,7 +429,7 @@
                             <label>Website</label>
                             <frontend_type>label</frontend_type>
                             <frontend_model>mp_socials/adminhtml_system_config_form_field_origins</frontend_model>
-                            <sort_order>110</sort_order>
+                            <sort_order>120</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -408,7 +438,7 @@
                             <label>Callback URL</label>
                             <frontend_type>label</frontend_type>
                             <frontend_model>mp_socials/twitter_adminhtml_system_config_form_field_redirects</frontend_model>
-                            <sort_order>120</sort_order>
+                            <sort_order>130</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -432,10 +462,20 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </enabled>
+                        <title translate="label" module="mp_socials">
+                            <label>Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                            <validate>required-entry</validate>
+                        </title>
                         <username translate="label" module="mp_socials">
                             <label>Username</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>20</sort_order>
+                            <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -445,7 +485,7 @@
                         <password translate="label" module="mp_socials">
                             <label>Password</label>
                             <frontend_type>password</frontend_type>
-                            <sort_order>30</sort_order>
+                            <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -455,7 +495,7 @@
                         <profile_link translate="label" module="mp_socials">
                             <label>Profile Link</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>40</sort_order>
+                            <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -465,7 +505,7 @@
                         <review_link translate="label" module="mp_socials">
                             <label>Review Link</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>50</sort_order>
+                            <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -475,7 +515,7 @@
                         <icon_class translate="label" module="mp_socials">
                             <label>Icon Class</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>60</sort_order>
+                            <sort_order>70</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -484,7 +524,7 @@
                         <button_color translate="label" module="mp_socials">
                             <label>Button Color</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>70</sort_order>
+                            <sort_order>80</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -494,7 +534,7 @@
                         <client_id translate="label" module="mp_socials">
                             <label>LinkedIn API Key</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>80</sort_order>
+                            <sort_order>90</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -504,7 +544,7 @@
                         <client_secret translate="label" module="mp_socials">
                             <label>LinkedIn Secret Key</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>90</sort_order>
+                            <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -515,7 +555,7 @@
                             <label>Links</label>
                             <frontend_type>label</frontend_type>
                             <frontend_model>mp_socials/linkedin_adminhtml_system_config_form_field_links</frontend_model>
-                            <sort_order>100</sort_order>
+                            <sort_order>110</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -524,7 +564,7 @@
                             <label>Website URL</label>
                             <frontend_type>label</frontend_type>
                             <frontend_model>mp_socials/adminhtml_system_config_form_field_origins</frontend_model>
-                            <sort_order>110</sort_order>
+                            <sort_order>120</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -533,7 +573,7 @@
                             <label>OAuth 2.0 Redirect URLs</label>
                             <frontend_type>label</frontend_type>
                             <frontend_model>mp_socials/linkedin_adminhtml_system_config_form_field_redirects</frontend_model>
-                            <sort_order>120</sort_order>
+                            <sort_order>130</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
