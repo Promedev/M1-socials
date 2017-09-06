@@ -65,6 +65,16 @@
                 </setup>
             </mp_socials_setup>
         </resources>
+        <events>
+            <customer_delete_after>
+                <observers>
+                    <mp_socials_customer_delete_after>
+                        <class>mp_socials/observer</class>
+                        <method>customerDeleteAfter</method>
+                    </mp_socials_customer_delete_after>
+                </observers>
+            </customer_delete_after>
+        </events>
     </global>
     <frontend>
         <layout>

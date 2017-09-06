@@ -186,4 +186,17 @@ class MP_Socials_Model_Social extends Mage_Core_Model_Abstract
 
         return $this;
     }
+
+    /**
+     * Delete all social networks from the deleted customer
+     *
+     * @param int $customerId
+     * @return $this
+     */
+    public function deleteByCustomerId($customerId)
+    {
+        $this->getResource()->deleteByCustomerId($customerId);
+
+        return $this;
+    }
 }

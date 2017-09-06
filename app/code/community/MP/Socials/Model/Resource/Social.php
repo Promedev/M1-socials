@@ -46,7 +46,7 @@ class MP_Socials_Model_Resource_Social extends Mage_Core_Model_Resource_Db_Abstr
     }
 
     /**
-     * Load an object
+     * Load object data
      *
      * @param MP_Socials_Model_Social $object
      * @param mixed $value
@@ -87,6 +87,32 @@ class MP_Socials_Model_Resource_Social extends Mage_Core_Model_Resource_Db_Abstr
 
         $this->unserializeFields($object);
         $this->_afterLoad($object);
+
+        return $this;
+    }
+
+    /**
+     * Delete all social networks from the deleted customer
+     *
+     * @param int $customerId
+     * @return $this
+     * @throws Exception
+     */
+    public function deleteByCustomerId($customerId)
+    {
+        $adapter = $this->_getWriteAdapter();
+        $adapter->beginTransaction();
+
+        try {
+            $where = $adapter->quoteInto('customer_id = ?', $customerId);
+            $adapter->delete($this->getMainTable(), $where);
+
+            $adapter->commit();
+        } catch (Exception $e) {
+            $adapter->rollBack();
+
+            throw $e;
+        }
 
         return $this;
     }

@@ -1,6 +1,7 @@
 app/design/frontend/base/default/layout/mp/socials/default.xml app/design/frontend/base/default/layout/mp/socials/default.xml
 app/design/frontend/base/default/template/mp/socials/button.phtml app/design/frontend/base/default/template/mp/socials/button.phtml
 app/etc/modules/MP_Socials.xml app/etc/modules/MP_Socials.xml
+app/code/community/MP/Socials/Model/Observer.php app/code/community/MP/Socials/Model/Observer.php
 app/code/community/MP/Socials/Model/Resource/Social.php app/code/community/MP/Socials/Model/Resource/Social.php
 app/code/community/MP/Socials/Model/Resource/Social/Collection.php app/code/community/MP/Socials/Model/Resource/Social/Collection.php
 app/code/community/MP/Socials/Model/Oauth2/Client.php app/code/community/MP/Socials/Model/Oauth2/Client.php

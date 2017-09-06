@@ -174,8 +174,6 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
 
         /** @var Mage_Customer_Model_Resource_Customer_Collection $collection */
         $collection = $customer->getCollection()
-//            ->addAttributeToSelect($this->accountTokenField)
-//            ->addAttributeToFilter($this->accountIdField, $accountId)
             ->addAttributeToFilter('entity_id', ['in' => $customerIds])
             ->setPageSize(1);
 

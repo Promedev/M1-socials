@@ -89,6 +89,17 @@ if (!$installer->getConnection()->isTableExists($tableName)) {
             'Auth Provider'
         )
         ->addColumn(
+            'store_id',
+            Varien_Db_Ddl_Table::TYPE_INTEGER,
+            10,
+            [
+                'default'  => 0,
+                'unsigned' => true,
+                'nullable' => false
+            ],
+            'Store'
+        )
+        ->addColumn(
             'website_id',
             Varien_Db_Ddl_Table::TYPE_INTEGER,
             10,

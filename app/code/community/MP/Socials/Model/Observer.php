@@ -25,36 +25,33 @@
  */
 
 /**
- * Trait MP_Socials_Trait
+ * Class MP_Socials_Model_Observer
  *
  * @category   MP
  * @package    MP_Socials
  * @author     Merchant Protocol Team <info@merchantprotocol.com>
  */
-trait MP_Socials_Trait
+class MP_Socials_Model_Observer
 {
-    /**
-     * Get social modal object
-     *
-     * @param null|string $authProvider
-     * @return MP_Socials_Model_Social
-     */
-    public function getSocialModel($authProvider = null)
-    {
-        $object = Mage::getModel('mp_socials/social')
-            ->setStore($this->helper()->getStore())
-            ->setAuthProvider($authProvider);
-
-        return $object;
-    }
+    use MP_Socials_Trait;
 
     /**
-     * Get data helper object
+     * Customer delete handler
      *
-     * @return MP_Socials_Helper_Data
+     * @event customer_delete_after
+     * @param Varien_Event_Observer $observer
+     * @return $this
      */
-    public function helper()
+    public function customerDeleteAfter(Varien_Event_Observer $observer)
     {
-        return Mage::helper('mp_socials');
+        /** @var Mage_Customer_Model_Customer $customer */
+        $customer = $observer->getEvent()->getData('customer');
+
+        /**
+         * Delete all social networks from the deleted customer
+         */
+        $this->getSocialModel()->deleteByCustomerId($customer->getId());
+
+        return $this;
     }
 }
