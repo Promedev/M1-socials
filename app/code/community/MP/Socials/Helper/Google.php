@@ -41,14 +41,5 @@ class MP_Socials_Helper_Google extends MP_Socials_Helper_Data
     /**
      * @const string
      */
-    const ACCOUNT_CSRF        = 'google_csrf';
-    const ACCOUNT_ID_FIELD    = 'social_google_id';
-    const ACCOUNT_TOKEN_FIELD = 'social_google_token';
-
-    /**
-     * @const string
-     */
-    protected $authProvider      = self::AUTH_PROVIDER;
-    protected $accountIdField    = self::ACCOUNT_ID_FIELD;
-    protected $accountTokenField = self::ACCOUNT_TOKEN_FIELD;
+    protected $authProvider = self::AUTH_PROVIDER;
 }

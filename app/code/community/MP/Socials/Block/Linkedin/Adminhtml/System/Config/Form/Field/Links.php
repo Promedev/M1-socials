@@ -35,6 +35,8 @@ class MP_Socials_Block_Linkedin_Adminhtml_System_Config_Form_Field_Links
     extends MP_Socials_Block_Adminhtml_System_Config_Form_Field_Links
 {
     /**
+     * Get auth provider link
+     *
      * @return string
      */
     protected function getAuthProviderLink()
@@ -43,6 +45,8 @@ class MP_Socials_Block_Linkedin_Adminhtml_System_Config_Form_Field_Links
     }
 
     /**
+     * Get auth provider link href
+     *
      * @return string
      */
     protected function getAuthProviderLinkHref()

@@ -36,17 +36,7 @@ abstract class MP_Socials_Controller_Abstract extends Mage_Core_Controller_Front
     use MP_Socials_Trait;
 
     /**
-     * @return void
-     */
-    abstract public function connectCallback();
-
-    /**
-     * @return void
-     */
-    abstract public function disconnectCallback();
-
-    /**
-     * Connect action
+     * Connect account action
      *
      * @return void
      */
@@ -62,20 +52,37 @@ abstract class MP_Socials_Controller_Abstract extends Mage_Core_Controller_Front
     }
 
     /**
-     * Disconnect action
+     * Connect callback action
+     *
+     * @return void
+     */
+    abstract public function connectCallback();
+
+    /**
+     * Disconnect account action
      *
      * @return void
      */
     public function disconnectAction()
     {
+        $customer = $this->getCustomerSession()->getCustomer();
+
         try {
-            $this->disconnectCallback();
+            $this->disconnectCallback($customer);
         } catch (Exception $e) {
             $this->getCoreSession()->addError($e->getMessage());
         }
 
         $this->loginPostRedirect();
     }
+
+    /**
+     * Disconnect callback action
+     *
+     * @param Mage_Customer_Model_Customer $customer
+     * @return void
+     */
+    abstract public function disconnectCallback($customer);
 
     /**
      * Define target URL and redirect customer after logging in
@@ -142,18 +149,22 @@ abstract class MP_Socials_Controller_Abstract extends Mage_Core_Controller_Front
     }
 
     /**
+     * Get customer session object
+     *
      * @return Mage_Customer_Model_Session
      */
     protected function getCustomerSession()
     {
-        return Mage::getSingleton('customer/session');
+        return $this->helper()->getCustomerSession();
     }
 
     /**
+     * Get core session object
+     *
      * @return Mage_Core_Model_Session
      */
     protected function getCoreSession()
     {
-        return Mage::getSingleton('core/session');
+        return $this->helper()->getCoreSession();
     }
 }

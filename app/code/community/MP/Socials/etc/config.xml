@@ -29,7 +29,7 @@
     <modules>
         <MP_Socials>
             <version>1.0.0.0</version>
-            <name>Reviews</name>
+            <name>Socials</name>
             <repository>https://github.com/merchantprotocol/M1-socials.git</repository>
         </MP_Socials>
     </modules>
@@ -37,7 +37,16 @@
         <models>
             <mp_socials>
                 <class>MP_Socials_Model</class>
+                <resourceModel>mp_socials_resource</resourceModel>
             </mp_socials>
+            <mp_socials_resource>
+                <class>MP_Socials_Model_Resource</class>
+                <entities>
+                    <social>
+                        <table>mp_socials_entity</table>
+                    </social>
+                </entities>
+            </mp_socials_resource>
         </models>
         <blocks>
             <mp_socials>
@@ -53,7 +62,6 @@
             <mp_socials_setup>
                 <setup>
                     <module>MP_Socials</module>
-                    <class>MP_Socials_Model_Resource_Setup</class>
                 </setup>
             </mp_socials_setup>
         </resources>

@@ -35,11 +35,15 @@ abstract class MP_Socials_Block_Adminhtml_System_Config_Form_Field_Redirects
     extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
     /**
+     * Get auth provider
+     *
      * @return string
      */
     abstract protected function getAuthProvider();
 
     /**
+     * Prepare element to HTML
+     *
      * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */

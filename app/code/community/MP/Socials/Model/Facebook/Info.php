@@ -54,6 +54,8 @@ class MP_Socials_Model_Facebook_Info extends MP_Socials_Model_Info
     ];
 
     /**
+     * MP_Socials_Model_Facebook_Info constructor
+     *
      * @return void
      */
     public function _construct()
@@ -64,6 +66,8 @@ class MP_Socials_Model_Facebook_Info extends MP_Socials_Model_Info
     }
 
     /**
+     * Get request params
+     *
      * @return array
      */
     public function getRequestParams()
@@ -72,16 +76,14 @@ class MP_Socials_Model_Facebook_Info extends MP_Socials_Model_Info
     }
 
     /**
+     * Disconnect from the social network
+     *
      * @return $this
      */
     public function disconnect()
     {
         try {
-            $response = $this->client->api(
-                '/me/permissions',
-                Zend_Http_Client::DELETE,
-                []
-            );
+            $response = $this->client->api('/me/permissions', Zend_Http_Client::DELETE, []);
 
             foreach ($response as $key => $value) {
                 $this->{$key} = $value;

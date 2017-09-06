@@ -35,16 +35,22 @@ abstract class MP_Socials_Block_Adminhtml_System_Config_Form_Field_Links
     extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
     /**
+     * Get auth provider link
+     *
      * @return string
      */
     abstract protected function getAuthProviderLink();
 
     /**
+     * Get auth provider link href
+     *
      * @return string
      */
     abstract protected function getAuthProviderLinkHref();
 
     /**
+     * Prepare element to HTML
+     *
      * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */

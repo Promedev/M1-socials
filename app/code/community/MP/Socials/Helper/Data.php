@@ -33,6 +33,8 @@
  */
 class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    use MP_Socials_Trait;
+
     /**
      * @const string
      */
@@ -62,16 +64,6 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     ];
 
     /**
-     * @const string
-     */
-    protected $accountIdField;
-
-    /**
-     * @const string
-     */
-    protected $accountTokenField;
-
-    /**
      * @todo Not implemented
      * @return bool
      */
@@ -81,58 +73,20 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @return array
-     */
-    public function getSocialOptions()
-    {
-        $options = [];
-
-        foreach ($this->authProviders as $authProvider) {
-            $config = Mage::getStoreConfig('mp_socials/' . $authProvider);
-
-            if (((bool) $config['enabled']) !== true) {
-                continue;
-            }
-
-            $options[$authProvider] = $config;
-        }
-
-        return $options;
-    }
-
-    /**
-     * @return $this
-     */
-    public function addCsrf()
-    {
-        $uniqueHash = Mage::helper('core')->uniqHash($this->getWebsiteId() . '_' . $this->getStoreId() . '_');
-        $this->getCustomerSession()->setData($this->authProvider . '_csrf', $uniqueHash);
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCsrf()
-    {
-        return $this->getCustomerSession()->getData($this->authProvider . '_csrf');
-    }
-
-    /**
+     * Connect by auth ID
+     *
      * @param Mage_Customer_Model_Customer|Varien_Object $customer
-     * @param string $accountId
-     * @param mixed $token
+     * @param string $authId
+     * @param mixed $authToken
      * @return $this
      */
-    public function connectByAccountId(
-        $customer,
-        $accountId,
-        $token
-    ) {
-        $customer->setData($this->accountIdField, $accountId);
-        $customer->setData($this->accountTokenField, serialize($token));
-        $customer->save();
+    public function connectByAuthId($customer, $authId, $authToken)
+    {
+        $object = $this->getSocialModel($this->authProvider)->loadByAuthId($authId);
+        $object->setAuthId($authId)
+            ->setCustomerId($customer->getId())
+            ->setAuthToken($authToken)
+            ->save();
 
         $this->getCustomerSession()->setCustomerAsLoggedIn($customer);
 
@@ -140,30 +94,24 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Connect by creating account
+     *
      * @param string $email
      * @param string $firstname
      * @param string $lastname
-     * @param string $accountId
-     * @param mixed $token
+     * @param string $authId
+     * @param mixed $authToken
      * @param array $extra
      * @return $this
      */
-    public function connectByCreatingAccount(
-        $email,
-        $firstname,
-        $lastname,
-        $accountId,
-        $token,
-        array $extra = []
-    ) {
+    public function connectByCreatingAccount($email, $firstname, $lastname, $authId, $authToken, array $extra = [])
+    {
         /** @var Mage_Customer_Model_Customer $customer */
         $customer = Mage::getModel('customer/customer');
-        $customer->setStore(Mage::app()->getStore());
+        $customer->setStore($this->getStore());
         $customer->setData('email', $email);
         $customer->setData('firstname', $firstname);
         $customer->setData('lastname', $lastname);
-        $customer->setData($this->accountIdField, $accountId);
-        $customer->setData($this->accountTokenField, serialize($token));
         $customer->setPassword($customer->generatePassword(10));
 
         foreach ($extra as $key => $value) {
@@ -173,6 +121,12 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
         $customer->setData('confirmation', null);
         $customer->save();
         $customer->sendNewAccountEmail('confirmed', '', $customer->getStore()->getId());
+
+        $this->getSocialModel($this->authProvider)->loadByAuthId($authId)
+            ->setCustomerId($customer->getId())
+            ->setAuthId($authId)
+            ->setAuthToken($authToken)
+            ->save();
 
         $this->getCustomerSession()->setCustomerAsLoggedIn($customer);
 
@@ -196,43 +150,59 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param string $accountId
+     * Get customer collection auth ID
+     *
+     * @param string $authId
      * @return Mage_Customer_Model_Resource_Customer_Collection
      */
-    public function getCustomersByAccountId($accountId)
+    public function getCustomersByAuthId($authId)
     {
+        /** @var MP_Socials_Model_Resource_Social_Collection $socials */
+        $socials = Mage::getResourceModel('mp_socials/social_collection');
+        $socials->addFieldToFilter('auth_provider', $this->authProvider);
+        $socials->addFieldToFilter('auth_id', $authId);
+
+        $customerIds = [];
+
+        /** @var MP_Socials_Model_Social $social */
+        foreach ($socials as $social) {
+            $customerIds[] = $social->getCustomerId();
+        }
+
         /** @var Mage_Customer_Model_Customer $customer */
         $customer = Mage::getModel('customer/customer');
 
         /** @var Mage_Customer_Model_Resource_Customer_Collection $collection */
         $collection = $customer->getCollection()
-            ->addAttributeToSelect($this->accountTokenField)
-            ->addAttributeToFilter($this->accountIdField, $accountId)
+//            ->addAttributeToSelect($this->accountTokenField)
+//            ->addAttributeToFilter($this->accountIdField, $accountId)
+            ->addAttributeToFilter('entity_id', ['in' => $customerIds])
             ->setPageSize(1);
 
         if ($customer->getSharingConfig()->isWebsiteScope()) {
-            $collection->addAttributeToFilter('website_id', $this->getStoreId());
+            $collection->addAttributeToFilter('website_id', $this->getWebsiteId());
         }
 
         return $collection;
     }
 
     /**
+     * Get customer collection by email
+     *
      * @param string $email
      * @return Mage_Customer_Model_Resource_Customer_Collection
      */
     public function getCustomersByEmail($email)
     {
-        /** @var Mage_Customer_Model_Customer $customer */
-        $customer = Mage::getModel('customer/customer');
-
-        /** @var Mage_Customer_Model_Resource_Customer_Collection $collection */
-        $collection = $customer->getCollection()
-            ->addFieldToFilter('email', $email)
-            ->setPageSize(1);
+        /**
+         * @var Mage_Customer_Model_Customer $customer
+         * @var Mage_Customer_Model_Resource_Customer_Collection $collection
+         */
+        $customer   = Mage::getModel('customer/customer');
+        $collection = $customer->getCollection()->addFieldToFilter('email', $email)->setPageSize(1);
 
         if ($customer->getSharingConfig()->isWebsiteScope()) {
-            $collection->addAttributeToFilter('website_id', $this->getStoreId());
+            $collection->addAttributeToFilter('website_id', $this->getWebsiteId());
         }
 
         if ($this->getCustomerSession()->isLoggedIn()) {
@@ -243,6 +213,8 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Get proper dimensions picture url
+     *
      * @param string $accountId
      * @param string $pictureUrl
      * @return null|string
@@ -297,16 +269,26 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Disconnect customer from current auth provider
+     *
      * @param Mage_Customer_Model_Customer|Varien_Object $customer
      * @return $this
      */
     public function disconnect($customer)
     {
-        /** @var MP_Socials_Model_Info $info */
-        $info = Mage::getSingleton(sprintf('mp_socials/%s_info/', $this->authProvider));
+        /**
+         * @var MP_Socials_Model_Social $object
+         * @var MP_Socials_Model_Info $info
+         */
+        $object = $this->getSocialModel($this->authProvider)->loadByCustomerId($customer->getId());
+        $info   = Mage::getSingleton(sprintf('mp_socials/%s_info/', $object->getAuthProvider()));
+
+        if (!$info instanceof MP_Socials_Model_Info) {
+            Mage::throwException($this->__('Class "%s" not found.', MP_Socials_Model_Info::class));
+        }
 
         try {
-            $info->setAccessToken(unserialize($customer->getData($this->accountTokenField)));
+            $info->setAccessToken($object->getAuthToken());
             $info->disconnect();
         } catch (Exception $e) {}
 
@@ -318,20 +300,20 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
             . DS
             . $this->authProvider
             . DS
-            . $customer->getData($this->accountIdField);
+            . $object->getAuthId();
 
         if (file_exists($pictureFilename)) {
             @unlink($pictureFilename);
         }
 
-        $customer->setData($this->accountIdField, null);
-        $customer->setData($this->accountTokenField, null);
-        $customer->save();
+        $object->delete();
 
         return $this;
     }
 
     /**
+     * Validate customer info
+     *
      * @param MP_Socials_Model_Facebook_Info $info
      * @return $this
      */
@@ -353,6 +335,32 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Add CSRF code in customer session
+     * For security reasons
+     *
+     * @return $this
+     */
+    public function addCsrf()
+    {
+        $uniqueHash = Mage::helper('core')->uniqHash($this->getWebsiteId() . '_' . $this->getStoreId() . '_');
+        $this->getCustomerSession()->setData($this->authProvider . '_csrf', $uniqueHash);
+
+        return $this;
+    }
+
+    /**
+     * Get CSRF code
+     *
+     * @return string
+     */
+    public function getCsrf()
+    {
+        return $this->getCustomerSession()->getData($this->authProvider . '_csrf');
+    }
+
+    /**
+     * Set auth redirect url
+     *
      * @param string $redirectUrl
      * @return $this
      */
@@ -364,6 +372,8 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Get auth redirect url
+     *
      * @return string
      */
     public function getAuthRedirectUrl()
@@ -372,15 +382,63 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @return Mage_Core_Model_Store
+     * Get available social options
+     * This method will be used by third-party extensions
+     *
+     * @return array
      */
-    public function getStore()
+    public function getSocialOptions()
     {
-        return Mage::app()->getStore();
+        $options = [];
+
+        foreach ($this->authProviders as $authProvider) {
+            $config = Mage::getStoreConfig('mp_socials/' . $authProvider);
+
+            if (((bool) $config['enabled']) !== true) {
+                continue;
+            }
+
+            $options[$authProvider] = $config;
+        }
+
+        return $options;
     }
 
     /**
-     * @return int
+     * Get HTTP request
+     *
+     * @return Mage_Core_Controller_Request_Http
+     */
+    public function getRequest()
+    {
+        return Mage::app()->getRequest();
+    }
+
+    /**
+     * Get HTTP response
+     *
+     * @return Zend_Controller_Response_Http
+     */
+    public function getResponse()
+    {
+        return Mage::app()->getResponse();
+    }
+
+    /**
+     * Get current store
+     *
+     * @param null|integer $storeId
+     * @return Mage_Core_Model_Store
+     */
+    public function getStore($storeId = null)
+    {
+        return Mage::app()->getStore($storeId);
+    }
+
+    /**
+     * Get current store id
+     *
+     * @return integer
      */
     public function getStoreId()
     {
@@ -388,14 +446,19 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Get current website id
+     *
+     * @param null|integer $websiteId
      * @return Mage_Core_Model_Website
      */
-    public function getWebsite()
+    public function getWebsite($websiteId = null)
     {
-        return $this->getStore()->getWebsite();
+        return Mage::app()->getWebsite($websiteId);
     }
 
     /**
+     * Get current website id
+     *
      * @return int
      */
     public function getWebsiteId()
@@ -404,6 +467,8 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Get customer session object
+     *
      * @return Mage_Customer_Model_Session
      */
     public function getCustomerSession()
@@ -412,6 +477,8 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Get core session object
+     *
      * @return Mage_Core_Model_Session
      */
     public function getCoreSession()

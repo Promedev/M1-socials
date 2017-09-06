@@ -40,12 +40,16 @@ class MP_Socials_Model_Facebook_Oauth2_Client extends MP_Socials_Model_Oauth2_Cl
 
     /**
      * @var string
+     * @var string
+     * @var string
      */
     protected $xmlPathEnabled      = 'mp_socials/facebook/enabled';
     protected $xmlPathClientId     = 'mp_socials/facebook/client_id';
     protected $xmlPathClientSecret = 'mp_socials/facebook/client_secret';
 
     /**
+     * @var string
+     * @var string
      * @var string
      */
     protected $oauth2ServiceUri = 'https://graph.facebook.com';
@@ -62,6 +66,8 @@ class MP_Socials_Model_Facebook_Oauth2_Client extends MP_Socials_Model_Oauth2_Cl
     ];
 
     /**
+     * Response treatment
+     *
      * @return void
      */
     protected function responseTreatment()

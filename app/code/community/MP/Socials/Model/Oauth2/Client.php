@@ -100,7 +100,7 @@ abstract class MP_Socials_Model_Oauth2_Client extends Varien_Object
      */
     public function isEnabled()
     {
-        return (bool) $this->getStoreConfig($this->xmlPathEnabled);
+        return (bool) $this->getConfig($this->xmlPathEnabled);
     }
 
     /**
@@ -108,7 +108,7 @@ abstract class MP_Socials_Model_Oauth2_Client extends Varien_Object
      */
     public function getClientId()
     {
-        return $this->getStoreConfig($this->xmlPathClientId);
+        return $this->getConfig($this->xmlPathClientId);
     }
 
     /**
@@ -116,7 +116,7 @@ abstract class MP_Socials_Model_Oauth2_Client extends Varien_Object
      */
     public function getClientSecret()
     {
-        return $this->getStoreConfig($this->xmlPathClientSecret);
+        return $this->getConfig($this->xmlPathClientSecret);
     }
 
     /**
@@ -335,16 +335,8 @@ abstract class MP_Socials_Model_Oauth2_Client extends Varien_Object
      * @param string $xmlPath
      * @return string
      */
-    protected function getStoreConfig($xmlPath)
+    protected function getConfig($xmlPath)
     {
-        return Mage::getStoreConfig($xmlPath, $this->getStoreId());
-    }
-
-    /**
-     * @return int
-     */
-    protected function getStoreId()
-    {
-        return Mage::app()->getStore()->getId();
+        return Mage::getStoreConfig($xmlPath, $this->helper()->getStoreId());
     }
 }

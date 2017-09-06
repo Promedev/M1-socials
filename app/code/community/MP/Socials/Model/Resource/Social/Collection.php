@@ -25,56 +25,23 @@
  */
 
 /**
- * Class MP_Socials_Model_Resource_Setup
+ * Class MP_Socials_Model_Resource_Social_Collection
  *
  * @category   MP
  * @package    MP_Socials
  * @author     Merchant Protocol Team <info@merchantprotocol.com>
  */
-class MP_Socials_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
+class MP_Socials_Model_Resource_Social_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * @const string
+     * MP_Socials_Model_Resource_Social_Collection constructor
+     *
+     * @return void
      */
-    const CUSTOMER_ENTITY = 'customer';
-
-    /**
-     * @var array
-     */
-    protected $customerAttributes = [];
-
-    /**
-     * @param array $customerAttributes
-     * @return $this
-     */
-    public function setCustomerAttributes($customerAttributes)
+    public function _construct()
     {
-        $this->customerAttributes = $customerAttributes;
+        parent::_construct();
 
-        return $this;
-    }
-
-    /**
-     * @return Mage_Eav_Model_Entity_Setup
-     */
-    public function installCustomerAttributes()
-    {
-        foreach ($this->customerAttributes as $code => $attr) {
-            $this->addAttribute(self::CUSTOMER_ENTITY, $code, $attr);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Mage_Eav_Model_Entity_Setup
-     */
-    public function removeCustomerAttributes()
-    {
-        foreach ($this->customerAttributes as $code => $attr) {
-            $this->removeAttribute(self::CUSTOMER_ENTITY, $code);
-        }
-
-        return $this;
+        $this->_init('mp_socials/social');
     }
 }

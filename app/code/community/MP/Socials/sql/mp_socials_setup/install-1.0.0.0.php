@@ -24,30 +24,103 @@
  * @license    https://merchantprotocol.com/commercial-license/  Merchant Protocol Commercial License (MPCL 1.0)
  */
 
-/* @var MP_Socials_Model_Resource_Setup $installer */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 $installer->startSetup();
 
-$installer->setCustomerAttributes(
-    [
-        'social_facebook_id' => [
-            'type'         => 'text',
-            'visible'      => false,
-            'required'     => false,
-            'user_defined' => false                
-        ],
-        'social_facebook_token' => [
-            'type'         => 'text',
-            'visible'      => false,
-            'required'     => false,
-            'user_defined' => false                
-        ]
-    ]
-);
+/**
+ * Create table 'mp_socials/social'
+ */
+$tableName = $installer->getTable('mp_socials/social');
 
-$installer->installCustomerAttributes();
+if (!$installer->getConnection()->isTableExists($tableName)) {
+    $table = $installer->getConnection()
+        ->newTable($tableName)
+        ->addColumn(
+            'entity_id',
+            Varien_Db_Ddl_Table::TYPE_INTEGER,
+            10,
+            [
+                'identity' => true,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary'  => true
+            ],
+            'Relationship ID'
+        )
+        ->addColumn(
+            'customer_id',
+            Varien_Db_Ddl_Table::TYPE_INTEGER,
+            10,
+            [
+                'unsigned' => true,
+                'nullable' => true
+            ],
+            'Customer Id'
+        )
+        ->addColumn(
+            'auth_id',
+            Varien_Db_Ddl_Table::TYPE_TEXT,
+            null,
+            [
+                'unsigned' => true,
+                'nullable' => true
+            ],
+            'Auth ID'
+        )
+        ->addColumn(
+            'auth_token',
+            Varien_Db_Ddl_Table::TYPE_TEXT,
+            null,
+            [
+                'unsigned' => true,
+                'nullable' => true
+            ],
+            'Auth Token'
+        )
+        ->addColumn(
+            'auth_provider',
+            Varien_Db_Ddl_Table::TYPE_TEXT,
+            255,
+            [
+                'unsigned' => true,
+                'nullable' => true
+            ],
+            'Auth Provider'
+        )
+        ->addColumn(
+            'website_id',
+            Varien_Db_Ddl_Table::TYPE_INTEGER,
+            10,
+            [
+                'default'  => 0,
+                'unsigned' => true,
+                'nullable' => false
+            ],
+            'Website'
+        )
+        ->addColumn(
+            'created_at',
+            Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
+            null,
+            [
+                'nullable' => false,
+                'default'  => Varien_Db_Ddl_Table::TIMESTAMP_INIT
+            ],
+            'Created At'
+        )
+        ->addColumn(
+            'updated_at',
+            Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
+            null,
+            [
+                'nullable' => false,
+                'default'  => Varien_Db_Ddl_Table::TIMESTAMP_INIT_UPDATE
+            ],
+            'Updated At'
+        );
 
-// Remove our custom attributes (for testing)
-// $installer->removeCustomerAttributes();
+    $installer->getConnection()->createTable($table);
+}
 
 $installer->endSetup();

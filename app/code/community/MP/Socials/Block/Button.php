@@ -44,6 +44,8 @@ class MP_Socials_Block_Button extends Mage_Core_Block_Template
     protected $client;
 
     /**
+     * MP_Socials_Block_Button constructor
+     *
      * @return void
      */
     protected function _construct()
@@ -54,6 +56,8 @@ class MP_Socials_Block_Button extends Mage_Core_Block_Template
     }
 
     /**
+     * Get button title
+     *
      * @return string
      */
     public function getButtonTitle()
@@ -64,6 +68,8 @@ class MP_Socials_Block_Button extends Mage_Core_Block_Template
     }
 
     /**
+     * Get button url
+     *
      * @return string
      */
     public function getButtonUrl()
@@ -92,6 +98,8 @@ class MP_Socials_Block_Button extends Mage_Core_Block_Template
     }
 
     /**
+     * Get auth provider
+     *
      * @return string
      */
     public function getAuthProvider()
@@ -106,6 +114,8 @@ class MP_Socials_Block_Button extends Mage_Core_Block_Template
     }
 
     /**
+     * Prepare block to HTML
+     *
      * @return string
      */
     protected function _toHtml()
@@ -127,6 +137,8 @@ class MP_Socials_Block_Button extends Mage_Core_Block_Template
     }
 
     /**
+     * Get store config data
+     *
      * @param string $key
      * @return string
      */

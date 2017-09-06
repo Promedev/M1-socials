@@ -1,10 +1,12 @@
 app/design/frontend/base/default/layout/mp/socials/default.xml app/design/frontend/base/default/layout/mp/socials/default.xml
 app/design/frontend/base/default/template/mp/socials/button.phtml app/design/frontend/base/default/template/mp/socials/button.phtml
 app/etc/modules/MP_Socials.xml app/etc/modules/MP_Socials.xml
-app/code/community/MP/Socials/Model/Resource/Setup.php app/code/community/MP/Socials/Model/Resource/Setup.php
+app/code/community/MP/Socials/Model/Resource/Social.php app/code/community/MP/Socials/Model/Resource/Social.php
+app/code/community/MP/Socials/Model/Resource/Social/Collection.php app/code/community/MP/Socials/Model/Resource/Social/Collection.php
 app/code/community/MP/Socials/Model/Oauth2/Client.php app/code/community/MP/Socials/Model/Oauth2/Client.php
 app/code/community/MP/Socials/Model/Oauth2/Exception.php app/code/community/MP/Socials/Model/Oauth2/Exception.php
 app/code/community/MP/Socials/Model/Info.php app/code/community/MP/Socials/Model/Info.php
+app/code/community/MP/Socials/Model/Social.php app/code/community/MP/Socials/Model/Social.php
 app/code/community/MP/Socials/Model/Facebook/Oauth2/Client.php app/code/community/MP/Socials/Model/Facebook/Oauth2/Client.php
 app/code/community/MP/Socials/Model/Facebook/Info.php app/code/community/MP/Socials/Model/Facebook/Info.php
 app/code/community/MP/Socials/controllers/FacebookController.php app/code/community/MP/Socials/controllers/FacebookController.php

@@ -34,7 +34,22 @@
 trait MP_Socials_Trait
 {
     /**
-     * Get data helper
+     * Get social modal object
+     *
+     * @param string $authProvider
+     * @return MP_Socials_Model_Social
+     */
+    public function getSocialModel($authProvider)
+    {
+        $object = Mage::getModel('mp_socials/social')
+            ->setStore($this->helper()->getStore())
+            ->setAuthProvider($authProvider);
+
+        return $object;
+    }
+
+    /**
+     * Get data helper object
      *
      * @return MP_Socials_Helper_Data
      */

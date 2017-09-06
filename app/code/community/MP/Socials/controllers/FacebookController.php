@@ -34,6 +34,8 @@
 class MP_Socials_FacebookController extends MP_Socials_Controller_Abstract
 {
     /**
+     * Connect account action
+     *
      * @return $this
      * @throws Exception
      */
@@ -67,7 +69,7 @@ class MP_Socials_FacebookController extends MP_Socials_Controller_Abstract
 
             $info->connect();
 
-            $customersByFacebookId = $helper->getCustomersByAccountId($info->getId());
+            $customersByFacebookId = $helper->getCustomersByAuthId($info->getId());
 
             if ($this->getCustomerSession()->isLoggedIn()) {
                 /**
@@ -87,7 +89,7 @@ class MP_Socials_FacebookController extends MP_Socials_Controller_Abstract
                  */
                 $customer = $this->getCustomerSession()->getCustomer();
 
-                $helper->connectByAccountId($customer, $info->getId(), $token);
+                $helper->connectByAuthId($customer, $info->getId(), $token);
 
                 $this->getCoreSession()->addSuccess(
                     $this->__(
@@ -121,7 +123,7 @@ class MP_Socials_FacebookController extends MP_Socials_Controller_Abstract
                  */
                 $customer = $customersByEmail->getFirstItem();
 
-                $helper->connectByAccountId($customer, $info->getId(), $token);
+                $helper->connectByAuthId($customer, $info->getId(), $token);
 
                 $this->getCoreSession()->addSuccess(
                     $this->__(
@@ -183,8 +185,16 @@ class MP_Socials_FacebookController extends MP_Socials_Controller_Abstract
         return $this;
     }
 
-    public function disconnectCallback()
+    /**
+     * Disconnect action
+     *
+     * @param Mage_Customer_Model_Customer $customer
+     * @return void
+     */
+    public function disconnectCallback($customer)
     {
+        $this->helper()->disconnect($customer);
+
         $this->getCoreSession()->addSuccess(
             $this->__('You have successfully disconnected your Facebook account from our store account.')
         );

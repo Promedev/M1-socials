@@ -48,12 +48,16 @@ abstract class MP_Socials_Model_Info extends Varien_Object
 
     /**
      * @var string
+     * @var string
+     * @var array
      */
     protected $requestUri    = '';
     protected $requestMethod = Zend_Http_Client::GET;
     protected $requestParams = [];
 
     /**
+     * Get client
+     *
      * @return MP_Socials_Model_Facebook_Oauth2_Client
      */
     public function getClient()
@@ -62,6 +66,8 @@ abstract class MP_Socials_Model_Info extends Varien_Object
     }
 
     /**
+     * Set client
+     *
      * @param MP_Socials_Model_Oauth2_Client $client
      */
     public function setClient(MP_Socials_Model_Oauth2_Client $client)
@@ -70,6 +76,8 @@ abstract class MP_Socials_Model_Info extends Varien_Object
     }
 
     /**
+     * Set access token
+     *
      * @param string $token
      */
     public function setAccessToken($token)
@@ -78,6 +86,8 @@ abstract class MP_Socials_Model_Info extends Varien_Object
     }
 
     /**
+     * Get access token
+     *
      * @return stdClass
      */
     public function getAccessToken()
@@ -86,6 +96,8 @@ abstract class MP_Socials_Model_Info extends Varien_Object
     }
 
     /**
+     * Get request params
+     *
      * @return array|stdClass
      */
     public function getRequestParams()
@@ -94,6 +106,8 @@ abstract class MP_Socials_Model_Info extends Varien_Object
     }
 
     /**
+     * Connect with the social network
+     *
      * @return $this
      */
     public function connect()
@@ -118,6 +132,8 @@ abstract class MP_Socials_Model_Info extends Varien_Object
     }
 
     /**
+     * Disconnect from the social network
+     *
      * @return $this
      */
     public function disconnect()
@@ -126,6 +142,8 @@ abstract class MP_Socials_Model_Info extends Varien_Object
     }
 
     /**
+     * Exception treatment
+     *
      * @param Exception $e
      * @return $this
      */
@@ -143,6 +161,8 @@ abstract class MP_Socials_Model_Info extends Varien_Object
     }
 
     /**
+     * Check if customer is logged in
+     *
      * @return bool
      */
     protected function isLoggedIn()
@@ -151,6 +171,8 @@ abstract class MP_Socials_Model_Info extends Varien_Object
     }
 
     /**
+     * Get customer model object
+     *
      * @return Mage_Customer_Model_Customer
      */
     protected function getCustomer()
@@ -159,6 +181,8 @@ abstract class MP_Socials_Model_Info extends Varien_Object
     }
 
     /**
+     * Get customer session object
+     *
      * @return Mage_Customer_Model_Session
      */
     protected function getCustomerSession()
@@ -167,6 +191,8 @@ abstract class MP_Socials_Model_Info extends Varien_Object
     }
 
     /**
+     * Get core session object
+     *
      * @return Mage_Core_Model_Session
      */
     protected function getCoreSession()

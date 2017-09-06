@@ -41,33 +41,5 @@ class MP_Socials_Helper_Facebook extends MP_Socials_Helper_Data
     /**
      * @const string
      */
-    const ACCOUNT_CSRF        = 'facebook_csrf';
-    const ACCOUNT_ID_FIELD    = 'social_facebook_id';
-    const ACCOUNT_TOKEN_FIELD = 'social_facebook_token';
-
-    /**
-     * @const string
-     */
-    protected $authProvider      = self::AUTH_PROVIDER;
-    protected $accountIdField    = self::ACCOUNT_ID_FIELD;
-    protected $accountTokenField = self::ACCOUNT_TOKEN_FIELD;
-
-    /**
-     * @param MP_Socials_Model_Facebook_Info $info
-     * @return void
-     */
-    public function validate($info)
-    {
-        if (!$info->getFirstName()) {
-            Mage::throwException(
-                $this->__('Sorry, could not retrieve your account first name. Please try again.')
-            );
-        }
-
-        if (!$info->getLastName()) {
-            Mage::throwException(
-                $this->__('Sorry, could not retrieve your account last name. Please try again.')
-            );
-        }
-    }
+    protected $authProvider = self::AUTH_PROVIDER;
 }
