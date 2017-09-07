@@ -105,8 +105,8 @@ class MP_Socials_Model_Resource_Social extends Mage_Core_Model_Resource_Db_Abstr
 
         try {
             $where = $adapter->quoteInto('customer_id = ?', $customerId);
-            $adapter->delete($this->getMainTable(), $where);
 
+            $adapter->delete($this->getMainTable(), $where);
             $adapter->commit();
         } catch (Exception $e) {
             $adapter->rollBack();

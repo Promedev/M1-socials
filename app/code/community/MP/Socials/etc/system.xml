@@ -48,109 +48,112 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                        <enabled translate="label" module="mp_socials">
-                            <label>Enabled</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        <title translate="label" module="mp_socials">
+                            <label>Title</label>
+                            <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </enabled>
-                        <title translate="label" module="mp_socials">
-                            <label>Title</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>20</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
                             <validate>required-entry</validate>
                         </title>
                         <username translate="label" module="mp_socials">
                             <label>Username</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>30</sort_order>
+                            <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
                             <validate>required-entry</validate>
                         </username>
                         <password translate="label" module="mp_socials">
                             <label>Password</label>
                             <frontend_type>password</frontend_type>
-                            <sort_order>40</sort_order>
+                            <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
                             <validate>required-entry</validate>
                         </password>
                         <profile_link translate="label" module="mp_socials">
                             <label>Profile Link</label>
                             <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-url</validate>
+                        </profile_link>
+                        <icon_class translate="label" module="mp_socials">
+                            <label>Icon Class</label>
+                            <frontend_type>text</frontend_type>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
-                            <validate>required-entry validate-url</validate>
-                        </profile_link>
-                        <review_link translate="label" module="mp_socials">
-                            <label>Review Link</label>
+                        </icon_class>
+                        <button_color translate="label" module="mp_socials">
+                            <label>Button Color</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
-                            <validate>required-entry validate-url</validate>
-                        </review_link>
-                        <icon_class translate="label" module="mp_socials">
-                            <label>Icon Class</label>
-                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Hex or RGB.]]></comment>
+                        </button_color>
+                        <review_enabled translate="label" module="mp_socials">
+                            <label>Review Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>70</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
-                        </icon_class>
-                        <button_color translate="label" module="mp_socials">
-                            <label>Button Color</label>
+                        </review_enabled>
+                        <review_link translate="label" module="mp_socials">
+                            <label>Review Link</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>80</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
-                            <comment><![CDATA[Hex or RGB.]]></comment>
-                        </button_color>
-                        <client_id translate="label" module="mp_socials">
-                            <label>Google API Client ID</label>
-                            <frontend_type>text</frontend_type>
+                            <depends><review_enabled>1</review_enabled></depends>
+                            <validate>required-entry validate-url</validate>
+                        </review_link>
+                        <client_enabled translate="label" module="mp_socials">
+                            <label>Client Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>90</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
-                            <validate>required-entry</validate>
-                        </client_id>
-                        <client_secret translate="label" module="mp_socials">
-                            <label>Google API Client Secret</label>
+                        </client_enabled>
+                        <client_id translate="label" module="mp_socials">
+                            <label>Google API Client ID</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
+                            <depends><client_enabled>1</client_enabled></depends>
+                            <validate>required-entry</validate>
+                        </client_id>
+                        <client_secret translate="label" module="mp_socials">
+                            <label>Google API Client Secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><client_enabled>1</client_enabled></depends>
                             <validate>required-entry</validate>
                         </client_secret>
                         <links translate="label" module="mp_socials">
                             <label>Links</label>
                             <frontend_type>label</frontend_type>
                             <frontend_model>mp_socials/google_adminhtml_system_config_form_field_links</frontend_model>
-                            <sort_order>110</sort_order>
+                            <sort_order>120</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -159,7 +162,7 @@
                             <label>JavaScript Origins</label>
                             <frontend_type>label</frontend_type>
                             <frontend_model>mp_socials/adminhtml_system_config_form_field_origins</frontend_model>
-                            <sort_order>120</sort_order>
+                            <sort_order>130</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -168,7 +171,7 @@
                             <label>Redirect URIs</label>
                             <frontend_type>label</frontend_type>
                             <frontend_model>mp_socials/google_adminhtml_system_config_form_field_redirects</frontend_model>
-                            <sort_order>130</sort_order>
+                            <sort_order>140</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -183,109 +186,112 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                        <enabled translate="label" module="mp_socials">
-                            <label>Enabled</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        <title translate="label" module="mp_socials">
+                            <label>Title</label>
+                            <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </enabled>
-                        <title translate="label" module="mp_socials">
-                            <label>Title</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>20</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
                             <validate>required-entry</validate>
                         </title>
                         <username translate="label" module="mp_socials">
                             <label>Username</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>30</sort_order>
+                            <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
                             <validate>required-entry</validate>
                         </username>
                         <password translate="label" module="mp_socials">
                             <label>Password</label>
                             <frontend_type>password</frontend_type>
-                            <sort_order>40</sort_order>
+                            <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
                             <validate>required-entry</validate>
                         </password>
                         <profile_link translate="label" module="mp_socials">
                             <label>Profile Link</label>
                             <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-url</validate>
+                        </profile_link>
+                        <icon_class translate="label" module="mp_socials">
+                            <label>Icon Class</label>
+                            <frontend_type>text</frontend_type>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
-                            <validate>required-entry validate-url</validate>
-                        </profile_link>
-                        <review_link translate="label" module="mp_socials">
-                            <label>Review Link</label>
+                        </icon_class>
+                        <button_color translate="label" module="mp_socials">
+                            <label>Button Color</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
-                            <validate>required-entry validate-url</validate>
-                        </review_link>
-                        <icon_class translate="label" module="mp_socials">
-                            <label>Icon Class</label>
-                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Hex or RGB.]]></comment>
+                        </button_color>
+                        <review_enabled translate="label" module="mp_socials">
+                            <label>Review Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>70</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
-                        </icon_class>
-                        <button_color translate="label" module="mp_socials">
-                            <label>Button Color</label>
+                        </review_enabled>
+                        <review_link translate="label" module="mp_socials">
+                            <label>Review Link</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>80</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
-                            <comment><![CDATA[Hex or RGB.]]></comment>
-                        </button_color>
-                        <client_id translate="label" module="mp_socials">
-                            <label>Facebook App ID</label>
-                            <frontend_type>text</frontend_type>
+                            <depends><review_enabled>1</review_enabled></depends>
+                            <validate>required-entry validate-url</validate>
+                        </review_link>
+                        <client_enabled translate="label" module="mp_socials">
+                            <label>Client Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>90</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
-                            <validate>required-entry</validate>
-                        </client_id>
-                        <client_secret translate="label" module="mp_socials">
-                            <label>Facebook App Secret</label>
+                        </client_enabled>
+                        <client_id translate="label" module="mp_socials">
+                            <label>Facebook App ID</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
+                            <depends><client_enabled>1</client_enabled></depends>
+                            <validate>required-entry</validate>
+                        </client_id>
+                        <client_secret translate="label" module="mp_socials">
+                            <label>Facebook App Secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><client_enabled>1</client_enabled></depends>
                             <validate>required-entry</validate>
                         </client_secret>
                         <links translate="label" module="mp_socials">
                             <label>Links</label>
                             <frontend_type>label</frontend_type>
                             <frontend_model>mp_socials/facebook_adminhtml_system_config_form_field_links</frontend_model>
-                            <sort_order>110</sort_order>
+                            <sort_order>120</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -294,7 +300,7 @@
                             <label>App Domains</label>
                             <frontend_type>label</frontend_type>
                             <frontend_model>mp_socials/adminhtml_system_config_form_field_origins</frontend_model>
-                            <sort_order>120</sort_order>
+                            <sort_order>130</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -303,7 +309,7 @@
                             <label>Site URL</label>
                             <frontend_type>label</frontend_type>
                             <frontend_model>mp_socials/facebook_adminhtml_system_config_form_field_redirects</frontend_model>
-                            <sort_order>130</sort_order>
+                            <sort_order>140</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -318,109 +324,112 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                        <enabled translate="label" module="mp_socials">
-                            <label>Enabled</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        <title translate="label" module="mp_socials">
+                            <label>Title</label>
+                            <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </enabled>
-                        <title translate="label" module="mp_socials">
-                            <label>Title</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>20</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
                             <validate>required-entry</validate>
                         </title>
                         <username translate="label" module="mp_socials">
                             <label>Username</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>30</sort_order>
+                            <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
                             <validate>required-entry</validate>
                         </username>
                         <password translate="label" module="mp_socials">
                             <label>Password</label>
                             <frontend_type>password</frontend_type>
-                            <sort_order>40</sort_order>
+                            <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
                             <validate>required-entry</validate>
                         </password>
                         <profile_link translate="label" module="mp_socials">
                             <label>Profile Link</label>
                             <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-url</validate>
+                        </profile_link>
+                        <icon_class translate="label" module="mp_socials">
+                            <label>Icon Class</label>
+                            <frontend_type>text</frontend_type>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
-                            <validate>required-entry validate-url</validate>
-                        </profile_link>
-                        <review_link translate="label" module="mp_socials">
-                            <label>Review Link</label>
+                        </icon_class>
+                        <button_color translate="label" module="mp_socials">
+                            <label>Button Color</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
-                            <validate>required-entry validate-url</validate>
-                        </review_link>
-                        <icon_class translate="label" module="mp_socials">
-                            <label>Icon Class</label>
-                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Hex or RGB.]]></comment>
+                        </button_color>
+                        <review_enabled translate="label" module="mp_socials">
+                            <label>Review Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>70</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
-                        </icon_class>
-                        <button_color translate="label" module="mp_socials">
-                            <label>Button Color</label>
+                        </review_enabled>
+                        <review_link translate="label" module="mp_socials">
+                            <label>Review Link</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>80</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
-                            <comment><![CDATA[Hex or RGB.]]></comment>
-                        </button_color>
-                        <client_id translate="label" module="mp_socials">
-                            <label>Consumer Key</label>
-                            <frontend_type>text</frontend_type>
+                            <depends><review_enabled>1</review_enabled></depends>
+                            <validate>required-entry validate-url</validate>
+                        </review_link>
+                        <client_enabled translate="label" module="mp_socials">
+                            <label>Client Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>90</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
-                            <validate>required-entry</validate>
-                        </client_id>
-                        <client_secret translate="label" module="mp_socials">
-                            <label>Consumer Secret</label>
+                        </client_enabled>
+                        <client_id translate="label" module="mp_socials">
+                            <label>Consumer Key</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
+                            <depends><client_enabled>1</client_enabled></depends>
+                            <validate>required-entry</validate>
+                        </client_id>
+                        <client_secret translate="label" module="mp_socials">
+                            <label>Consumer Secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><client_enabled>1</client_enabled></depends>
                             <validate>required-entry</validate>
                         </client_secret>
                         <links translate="label" module="mp_socials">
                             <label>Links</label>
                             <frontend_type>label</frontend_type>
                             <frontend_model>mp_socials/twitter_adminhtml_system_config_form_field_links</frontend_model>
-                            <sort_order>110</sort_order>
+                            <sort_order>120</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -429,7 +438,7 @@
                             <label>Website</label>
                             <frontend_type>label</frontend_type>
                             <frontend_model>mp_socials/adminhtml_system_config_form_field_origins</frontend_model>
-                            <sort_order>120</sort_order>
+                            <sort_order>130</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -438,7 +447,7 @@
                             <label>Callback URL</label>
                             <frontend_type>label</frontend_type>
                             <frontend_model>mp_socials/twitter_adminhtml_system_config_form_field_redirects</frontend_model>
-                            <sort_order>130</sort_order>
+                            <sort_order>140</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -453,109 +462,112 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                        <enabled translate="label" module="mp_socials">
-                            <label>Enabled</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        <title translate="label" module="mp_socials">
+                            <label>Title</label>
+                            <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </enabled>
-                        <title translate="label" module="mp_socials">
-                            <label>Title</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>20</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
                             <validate>required-entry</validate>
                         </title>
                         <username translate="label" module="mp_socials">
                             <label>Username</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>30</sort_order>
+                            <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
                             <validate>required-entry</validate>
                         </username>
                         <password translate="label" module="mp_socials">
                             <label>Password</label>
                             <frontend_type>password</frontend_type>
-                            <sort_order>40</sort_order>
+                            <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
                             <validate>required-entry</validate>
                         </password>
                         <profile_link translate="label" module="mp_socials">
                             <label>Profile Link</label>
                             <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-url</validate>
+                        </profile_link>
+                        <icon_class translate="label" module="mp_socials">
+                            <label>Icon Class</label>
+                            <frontend_type>text</frontend_type>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
-                            <validate>required-entry validate-url</validate>
-                        </profile_link>
-                        <review_link translate="label" module="mp_socials">
-                            <label>Review Link</label>
+                        </icon_class>
+                        <button_color translate="label" module="mp_socials">
+                            <label>Button Color</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
-                            <validate>required-entry validate-url</validate>
-                        </review_link>
-                        <icon_class translate="label" module="mp_socials">
-                            <label>Icon Class</label>
-                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Hex or RGB.]]></comment>
+                        </button_color>
+                        <review_enabled translate="label" module="mp_socials">
+                            <label>Review Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>70</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
-                        </icon_class>
-                        <button_color translate="label" module="mp_socials">
-                            <label>Button Color</label>
+                        </review_enabled>
+                        <review_link translate="label" module="mp_socials">
+                            <label>Review Link</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>80</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
-                            <comment><![CDATA[Hex or RGB.]]></comment>
-                        </button_color>
-                        <client_id translate="label" module="mp_socials">
-                            <label>LinkedIn API Key</label>
-                            <frontend_type>text</frontend_type>
+                            <depends><review_enabled>1</review_enabled></depends>
+                            <validate>required-entry validate-url</validate>
+                        </review_link>
+                        <client_enabled translate="label" module="mp_socials">
+                            <label>Client Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>90</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
-                            <validate>required-entry</validate>
-                        </client_id>
-                        <client_secret translate="label" module="mp_socials">
-                            <label>LinkedIn Secret Key</label>
+                        </client_enabled>
+                        <client_id translate="label" module="mp_socials">
+                            <label>LinkedIn API Key</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><enabled>1</enabled></depends>
+                            <depends><client_enabled>1</client_enabled></depends>
+                            <validate>required-entry</validate>
+                        </client_id>
+                        <client_secret translate="label" module="mp_socials">
+                            <label>LinkedIn Secret Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><client_enabled>1</client_enabled></depends>
                             <validate>required-entry</validate>
                         </client_secret>
                         <links translate="label" module="mp_socials">
                             <label>Links</label>
                             <frontend_type>label</frontend_type>
                             <frontend_model>mp_socials/linkedin_adminhtml_system_config_form_field_links</frontend_model>
-                            <sort_order>110</sort_order>
+                            <sort_order>120</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -564,7 +576,7 @@
                             <label>Website URL</label>
                             <frontend_type>label</frontend_type>
                             <frontend_model>mp_socials/adminhtml_system_config_form_field_origins</frontend_model>
-                            <sort_order>120</sort_order>
+                            <sort_order>130</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -573,7 +585,7 @@
                             <label>OAuth 2.0 Redirect URLs</label>
                             <frontend_type>label</frontend_type>
                             <frontend_model>mp_socials/linkedin_adminhtml_system_config_form_field_redirects</frontend_model>
-                            <sort_order>130</sort_order>
+                            <sort_order>140</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>

@@ -392,7 +392,7 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
         foreach ($this->authProviders as $authProvider) {
             $config = Mage::getStoreConfig('mp_socials/' . $authProvider);
 
-            if (((bool) $config['enabled']) !== true) {
+            if (((bool) $config['review_enabled']) !== true) {
                 continue;
             }
 

@@ -43,7 +43,7 @@ class MP_Socials_Model_Facebook_Oauth2_Client extends MP_Socials_Model_Oauth2_Cl
      * @var string
      * @var string
      */
-    protected $xmlPathEnabled      = 'mp_socials/facebook/enabled';
+    protected $xmlPathEnabled      = 'mp_socials/facebook/client_enabled';
     protected $xmlPathClientId     = 'mp_socials/facebook/client_id';
     protected $xmlPathClientSecret = 'mp_socials/facebook/client_secret';
 
