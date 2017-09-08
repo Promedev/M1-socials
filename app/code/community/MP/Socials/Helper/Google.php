@@ -42,4 +42,22 @@ class MP_Socials_Helper_Google extends MP_Socials_Helper_Data
      * @const string
      */
     protected $authProvider = self::AUTH_PROVIDER;
+    
+    /**
+     *
+     * @return Ambigous <multitype:, mixed>
+     */
+    public function getPlaceId()
+    {
+        return $this->getConfig('place_id');
+    }
+    
+    /**
+     *
+     * @return string
+     */
+    public function getReviewLink()
+    {
+        return $this->escapeUrl('https://search.google.com/local/writereview?placeid='.$this->getPlaceId());
+    }
 }

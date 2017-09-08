@@ -55,26 +55,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry</validate>
                         </title>
-                        <username translate="label" module="mp_socials">
-                            <label>Username</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>20</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <validate>required-entry</validate>
-                        </username>
-                        <password translate="label" module="mp_socials">
-                            <label>Password</label>
-                            <frontend_type>password</frontend_type>
-                            <sort_order>30</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <validate>required-entry</validate>
-                        </password>
                         <profile_link translate="label" module="mp_socials">
                             <label>Profile Link</label>
                             <frontend_type>text</frontend_type>
@@ -82,7 +63,6 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry validate-url</validate>
                         </profile_link>
                         <icon_class translate="label" module="mp_socials">
                             <label>Icon Class</label>
@@ -110,16 +90,16 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </review_enabled>
-                        <review_link translate="label" module="mp_socials">
-                            <label>Review Link</label>
+                        <place_id translate="label" module="mp_socials">
+                            <label>Google Place ID </label>
                             <frontend_type>text</frontend_type>
                             <sort_order>80</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <depends><review_enabled>1</review_enabled></depends>
-                            <validate>required-entry validate-url</validate>
-                        </review_link>
+                            <comment><![CDATA[<a href="https://google-developers.appspot.com/maps/documentation/javascript/examples/full/places-placeid-finder" target="_blank">locate your google place ID</a>]]></comment>
+                        </place_id>
                         <client_enabled translate="label" module="mp_socials">
                             <label>Client Enabled</label>
                             <frontend_type>select</frontend_type>
@@ -129,6 +109,24 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </client_enabled>
+                        <username translate="label" module="mp_socials">
+                            <label>Username</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><client_enabled>1</client_enabled></depends>
+                        </username>
+                        <password translate="label" module="mp_socials">
+                            <label>Password</label>
+                            <frontend_type>password</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><client_enabled>1</client_enabled></depends>
+                        </password>
                         <client_id translate="label" module="mp_socials">
                             <label>Google API Client ID</label>
                             <frontend_type>text</frontend_type>
@@ -137,7 +135,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <depends><client_enabled>1</client_enabled></depends>
-                            <validate>required-entry</validate>
                         </client_id>
                         <client_secret translate="label" module="mp_socials">
                             <label>Google API Client Secret</label>
@@ -147,7 +144,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <depends><client_enabled>1</client_enabled></depends>
-                            <validate>required-entry</validate>
                         </client_secret>
                         <links translate="label" module="mp_socials">
                             <label>Links</label>
@@ -193,7 +189,6 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry</validate>
                         </title>
                         <username translate="label" module="mp_socials">
                             <label>Username</label>
@@ -202,7 +197,6 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry</validate>
                         </username>
                         <password translate="label" module="mp_socials">
                             <label>Password</label>
@@ -211,7 +205,6 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry</validate>
                         </password>
                         <profile_link translate="label" module="mp_socials">
                             <label>Profile Link</label>
@@ -220,7 +213,6 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry validate-url</validate>
                         </profile_link>
                         <icon_class translate="label" module="mp_socials">
                             <label>Icon Class</label>
@@ -256,7 +248,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <depends><review_enabled>1</review_enabled></depends>
-                            <validate>required-entry validate-url</validate>
                         </review_link>
                         <client_enabled translate="label" module="mp_socials">
                             <label>Client Enabled</label>
@@ -275,7 +266,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <depends><client_enabled>1</client_enabled></depends>
-                            <validate>required-entry</validate>
                         </client_id>
                         <client_secret translate="label" module="mp_socials">
                             <label>Facebook App Secret</label>
@@ -285,7 +275,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <depends><client_enabled>1</client_enabled></depends>
-                            <validate>required-entry</validate>
                         </client_secret>
                         <links translate="label" module="mp_socials">
                             <label>Links</label>
@@ -331,7 +320,6 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry</validate>
                         </title>
                         <username translate="label" module="mp_socials">
                             <label>Username</label>
@@ -340,7 +328,6 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry</validate>
                         </username>
                         <password translate="label" module="mp_socials">
                             <label>Password</label>
@@ -349,7 +336,6 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry</validate>
                         </password>
                         <profile_link translate="label" module="mp_socials">
                             <label>Profile Link</label>
@@ -358,7 +344,6 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry validate-url</validate>
                         </profile_link>
                         <icon_class translate="label" module="mp_socials">
                             <label>Icon Class</label>
@@ -394,7 +379,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <depends><review_enabled>1</review_enabled></depends>
-                            <validate>required-entry validate-url</validate>
                         </review_link>
                         <client_enabled translate="label" module="mp_socials">
                             <label>Client Enabled</label>
@@ -413,7 +397,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <depends><client_enabled>1</client_enabled></depends>
-                            <validate>required-entry</validate>
                         </client_id>
                         <client_secret translate="label" module="mp_socials">
                             <label>Consumer Secret</label>
@@ -423,7 +406,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <depends><client_enabled>1</client_enabled></depends>
-                            <validate>required-entry</validate>
                         </client_secret>
                         <links translate="label" module="mp_socials">
                             <label>Links</label>
@@ -469,7 +451,6 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry</validate>
                         </title>
                         <username translate="label" module="mp_socials">
                             <label>Username</label>
@@ -478,7 +459,6 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry</validate>
                         </username>
                         <password translate="label" module="mp_socials">
                             <label>Password</label>
@@ -487,7 +467,6 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry</validate>
                         </password>
                         <profile_link translate="label" module="mp_socials">
                             <label>Profile Link</label>
@@ -496,7 +475,6 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry validate-url</validate>
                         </profile_link>
                         <icon_class translate="label" module="mp_socials">
                             <label>Icon Class</label>
@@ -532,7 +510,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <depends><review_enabled>1</review_enabled></depends>
-                            <validate>required-entry validate-url</validate>
                         </review_link>
                         <client_enabled translate="label" module="mp_socials">
                             <label>Client Enabled</label>
@@ -551,7 +528,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <depends><client_enabled>1</client_enabled></depends>
-                            <validate>required-entry</validate>
                         </client_id>
                         <client_secret translate="label" module="mp_socials">
                             <label>LinkedIn Secret Key</label>
@@ -561,7 +537,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <depends><client_enabled>1</client_enabled></depends>
-                            <validate>required-entry</validate>
                         </client_secret>
                         <links translate="label" module="mp_socials">
                             <label>Links</label>

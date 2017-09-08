@@ -378,6 +378,8 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return $this->getCustomerSession()->getData(self::AUTH_REDIRECT_URL_KEY);
     }
+    
+    protected $_socialOptions = array();
 
     /**
      * Get available social options
@@ -387,19 +389,66 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getSocialOptions()
     {
-        $options = [];
-
-        foreach ($this->authProviders as $authProvider) {
-            $config = Mage::getStoreConfig('mp_socials/' . $authProvider);
-
-            if (((bool) $config['review_enabled']) !== true) {
-                continue;
+        if (empty($this->_socialOptions))
+        {
+            foreach ($this->authProviders as $authProvider) {
+                $helper = Mage::helper('mp_socials/' . $authProvider);
+    
+                if (!$helper->isReviewEnabled()) {
+                    continue;
+                }
+    
+                $this->_socialOptions[$authProvider] = $helper;
             }
-
-            $options[$authProvider] = $config;
         }
-
-        return $options;
+        return $this->_socialOptions;
+    }
+    
+    /**
+     *
+     * @param string $property
+     * @return array
+     */
+    public function getConfig( $property )
+    {
+        $config = Mage::getStoreConfig('mp_socials/' . $this->authProvider);
+        return $config[$property];
+    }
+    
+    /**
+     *
+     * @return boolean
+     */
+    public function isReviewEnabled()
+    {
+        return ((bool) $this->getConfig('review_enabled')) === true;
+    }
+    
+    /**
+     *
+     * @return boolean
+     */
+    public function getTitle()
+    {
+        return $this->__($this->getConfig('title'));
+    }
+    
+    /**
+     *
+     * @return boolean
+     */
+    public function getButtonColor()
+    {
+        return $this->getConfig('button_color');
+    }
+    
+    /**
+     *
+     * @return boolean
+     */
+    public function getIconClass()
+    {
+        return $this->getConfig('icon_class');
     }
 
     /**
