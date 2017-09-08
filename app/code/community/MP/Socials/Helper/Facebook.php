@@ -42,13 +42,4 @@ class MP_Socials_Helper_Facebook extends MP_Socials_Helper_Data
      * @const string
      */
     protected $authProvider = self::AUTH_PROVIDER;
-    
-    /**
-     *
-     * @return string
-     */
-    public function getReviewLink()
-    {
-        return $this->escapeUrl($this->getConfig('review_link'));
-    }
 }

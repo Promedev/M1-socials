@@ -31,19 +31,15 @@
             <block type="core/text_list" name="form.additional.info">
                 <block type="mp_socials/button" name="socials.google.login.button">
                     <action method="setAuthProvider"><value>google</value></action>
-                    <action method="setButtonTitle" translate="value"><value>Connect with Google</value></action>
                 </block>
                 <block type="mp_socials/button" name="socials.facebook.login.button">
                     <action method="setAuthProvider"><value>facebook</value></action>
-                    <action method="setButtonTitle" translate="value"><value>Connect with Facebook</value></action>
                 </block>
                 <block type="mp_socials/button" name="socials.twitter.login.button">
                     <action method="setAuthProvider"><value>twitter</value></action>
-                    <action method="setButtonTitle" translate="value"><value>Connect with Twitter</value></action>
                 </block>
                 <block type="mp_socials/button" name="socials.linkedin.login.button">
                     <action method="setAuthProvider"><value>linkedin</value></action>
-                    <action method="setButtonTitle" translate="value"><value>Connect with LinkedIn</value></action>
                 </block>
             </block>
         </reference>

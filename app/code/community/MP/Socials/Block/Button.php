@@ -28,7 +28,6 @@
  * Class MP_Socials_Block_Button
  *
  * @method $this setAuthProvider(string $value)
- * @method $this setButtonTitle(string $value)
  *
  * @category   MP
  * @package    MP_Socials
@@ -56,18 +55,6 @@ class MP_Socials_Block_Button extends Mage_Core_Block_Template
     }
 
     /**
-     * Get button title
-     *
-     * @return string
-     */
-    public function getButtonTitle()
-    {
-        return $this->getConfig('title')
-            ? $this->__('Connect with %s', $this->getConfig('title'))
-            : $this->_getData('button_title');
-    }
-
-    /**
      * Get button url
      *
      * @return string
@@ -78,13 +65,23 @@ class MP_Socials_Block_Button extends Mage_Core_Block_Template
     }
 
     /**
+     * Get button title
+     *
+     * @return string
+     */
+    public function getButtonTitle()
+    {
+        return $this->helper()->getTitle();
+    }
+
+    /**
      * Get hex or rgb color
      *
      * @return string
      */
     public function getColor()
     {
-        return $this->getConfig('button_color') ?: 'inherit';
+        return $this->helper()->getButtonColor();
     }
 
     /**
@@ -94,7 +91,7 @@ class MP_Socials_Block_Button extends Mage_Core_Block_Template
      */
     public function getIconClass()
     {
-        return $this->getConfig('icon_class');
+        return $this->helper()->getIconClass();
     }
 
     /**
@@ -111,6 +108,16 @@ class MP_Socials_Block_Button extends Mage_Core_Block_Template
         }
 
         return $authProvider;
+    }
+
+    /**
+     * Get social helper
+     *
+     * @return MP_Socials_Helper_Data|Mage_Core_Helper_Abstract
+     */
+    public function helper()
+    {
+        return Mage::helper('mp_socials/' . $this->getAuthProvider());
     }
 
     /**

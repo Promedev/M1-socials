@@ -30,6 +30,6 @@
         <?php if ($iconClass = $this->getIconClass()) : ?>
             <i class="<?php echo $iconClass ?>"></i>
         <?php endif ?>
-        <?php echo $this->escapeHtml($this->getButtonTitle()) ?>
+        <?php echo $this->escapeHtml($this->__('Connect with %s', $this->getButtonTitle())) ?>
     </button>
 </div>

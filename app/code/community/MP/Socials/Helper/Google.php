@@ -44,8 +44,9 @@ class MP_Socials_Helper_Google extends MP_Socials_Helper_Data
     protected $authProvider = self::AUTH_PROVIDER;
     
     /**
+     * Get place identifier
      *
-     * @return Ambigous <multitype:, mixed>
+     * @return string
      */
     public function getPlaceId()
     {
@@ -53,11 +54,12 @@ class MP_Socials_Helper_Google extends MP_Socials_Helper_Data
     }
     
     /**
+     * Get review link
      *
      * @return string
      */
     public function getReviewLink()
     {
-        return $this->escapeUrl('https://search.google.com/local/writereview?placeid='.$this->getPlaceId());
+        return $this->escapeUrl('https://search.google.com/local/writereview?placeid=' . $this->getPlaceId());
     }
 }

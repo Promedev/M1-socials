@@ -64,6 +64,11 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     ];
 
     /**
+     * @var array
+     */
+    protected $socialOptions = [];
+
+    /**
      * @todo Not implemented
      * @return bool
      */
@@ -378,44 +383,46 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return $this->getCustomerSession()->getData(self::AUTH_REDIRECT_URL_KEY);
     }
-    
-    protected $_socialOptions = array();
 
     /**
      * Get available social options
      * This method will be used by third-party extensions
      *
-     * @return array
+     * @return MP_Socials_Helper_Data[]
      */
     public function getSocialOptions()
     {
-        if (empty($this->_socialOptions))
-        {
+        if (empty($this->_socialOptions)) {
             foreach ($this->authProviders as $authProvider) {
+                /** @var MP_Socials_Helper_Data $helper */
                 $helper = Mage::helper('mp_socials/' . $authProvider);
     
                 if (!$helper->isReviewEnabled()) {
                     continue;
                 }
     
-                $this->_socialOptions[$authProvider] = $helper;
+                $this->socialOptions[$authProvider] = clone $helper;
             }
         }
+
         return $this->_socialOptions;
     }
     
     /**
+     * Get social system config
      *
      * @param string $property
      * @return array
      */
-    public function getConfig( $property )
+    public function getConfig($property)
     {
         $config = Mage::getStoreConfig('mp_socials/' . $this->authProvider);
+
         return $config[$property];
     }
     
     /**
+     * Is review enabled
      *
      * @return boolean
      */
@@ -425,6 +432,7 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     }
     
     /**
+     * Get title
      *
      * @return boolean
      */
@@ -432,17 +440,29 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return $this->__($this->getConfig('title'));
     }
+
+    /**
+     * Get review link
+     *
+     * @return string
+     */
+    public function getReviewLink()
+    {
+        return $this->escapeUrl($this->getConfig('review_link'));
+    }
     
     /**
+     * Get button color
      *
      * @return boolean
      */
     public function getButtonColor()
     {
-        return $this->getConfig('button_color');
+        return $this->getConfig('button_color') ?: 'inherit';
     }
     
     /**
+     * Get icon class
      *
      * @return boolean
      */
