@@ -25,41 +25,25 @@
  */
 
 /**
- * Class MP_Socials_Model_Facebook_Info
+ * Class MP_Socials_Model_Google_Info
  *
  * @category   MP
  * @package    MP_Socials
  * @author     Merchant Protocol Team <info@merchantprotocol.com>
  */
-class MP_Socials_Model_Facebook_Info extends MP_Socials_Model_Info
+class MP_Socials_Model_Google_Info extends MP_Socials_Model_Info
 {
     /**
      * @var string
      */
-    protected $requestUri = '/me';
-
-    /**
-     * @var array
-     */
-    protected $requestParams = [
-        'id',
-        'name',
-        'first_name',
-        'last_name',
-        'link',
-        'birthday',
-        'gender',
-        'email',
-        'picture.type(large)'
-    ];
+    protected $requestUri = '/userinfo';
 
     /**
      * @var array
      */
     protected $responseMap = [
-        'firstname' => 'first_name',
-        'lastname'  => 'last_name',
-        'dob'       => 'birthday'
+        'firstname' => 'given_name',
+        'lastname'  => 'family_name'
     ];
 
     /**
@@ -71,38 +55,6 @@ class MP_Socials_Model_Facebook_Info extends MP_Socials_Model_Info
     {
         parent::_construct();
 
-        $this->client = Mage::getSingleton('mp_socials/facebook_oauth2_client');
-    }
-
-    /**
-     * Get request params
-     *
-     * @return array
-     */
-    public function getRequestParams()
-    {
-        return ['fields' => implode(',', $this->requestParams)];
-    }
-
-    /**
-     * Disconnect from the social network
-     *
-     * @return $this
-     */
-    public function disconnect()
-    {
-        try {
-            $response = $this->client->api('/me/permissions', Zend_Http_Client::DELETE, []);
-
-            foreach ($response as $key => $value) {
-                $this->{$key} = $value;
-            }
-        } catch (MP_Socials_Model_Oauth2_Exception $e) {
-            $this->exception($e);
-        } catch (Exception $e) {
-            $this->exception($e);
-        }
-
-        return $this;
+        $this->client = Mage::getSingleton('mp_socials/google_oauth2_client');
     }
 }

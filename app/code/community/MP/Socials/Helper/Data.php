@@ -69,12 +69,24 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     protected $socialOptions = [];
 
     /**
+     * Checks if module is enabled
+     *
      * @todo Not implemented
      * @return bool
      */
     public function isEnabled()
     {
         return true;
+    }
+
+    /**
+     * Get info model
+     *
+     * @return false|MP_Socials_Model_Info
+     */
+    public function getInfoModel()
+    {
+        return Mage::getModel(sprintf('mp_socials/%s_info', $this->authProvider));
     }
 
     /**
@@ -101,35 +113,27 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Connect by creating account
      *
-     * @param string $email
-     * @param string $firstname
-     * @param string $lastname
-     * @param string $authId
+     * @param MP_Socials_Model_Info $info
      * @param mixed $authToken
-     * @param array $extra
      * @return $this
      */
-    public function connectByCreatingAccount($email, $firstname, $lastname, $authId, $authToken, array $extra = [])
+    public function connectByCreatingAccount($info, $authToken)
     {
         /** @var Mage_Customer_Model_Customer $customer */
         $customer = Mage::getModel('customer/customer');
         $customer->setStore($this->getStore());
-        $customer->setData('email', $email);
-        $customer->setData('firstname', $firstname);
-        $customer->setData('lastname', $lastname);
+        $customer->setData('email', $info->getEmail());
+        $customer->setData('firstname', $info->getFirstname());
+        $customer->setData('lastname', $info->getLastname());
         $customer->setPassword($customer->generatePassword(10));
-
-        foreach ($extra as $key => $value) {
-            $customer->setData($key, $value);
-        }
-
         $customer->setData('confirmation', null);
         $customer->save();
+
         $customer->sendNewAccountEmail('confirmed', '', $customer->getStore()->getId());
 
-        $this->getSocialModel($this->authProvider)->loadByAuthId($authId)
+        $this->getSocialModel($this->authProvider)->loadByAuthId($info->getId())
             ->setCustomerId($customer->getId())
-            ->setAuthId($authId)
+            ->setAuthId($info->getId())
             ->setAuthToken($authToken)
             ->save();
 
@@ -317,16 +321,16 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Validate customer info
      *
-     * @param MP_Socials_Model_Facebook_Info $info
+     * @param MP_Socials_Model_Info $info
      * @return $this
      */
     public function validate($info)
     {
-        if (!$info->getFirstName()) {
+        if (!$info->getFirstname()) {
             Mage::throwException($this->__('Could not retrieve your account first name.'));
         }
 
-        if (!$info->getLastName()) {
+        if (!$info->getLastname()) {
             Mage::throwException($this->__('Could not retrieve your account last name.'));
         }
 
@@ -416,7 +420,7 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getConfig($property)
     {
-        $config = Mage::getStoreConfig('mp_socials/' . $this->authProvider);
+        $config = Mage::getStoreConfig(sprintf('mp_socials/%s', $this->authProvider));
 
         return $config[$property];
     }
@@ -548,7 +552,7 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @return Mage_Core_Model_Session
      */
-    public function getCoreSession()
+    public function getSession()
     {
         return Mage::getSingleton('core/session');
     }

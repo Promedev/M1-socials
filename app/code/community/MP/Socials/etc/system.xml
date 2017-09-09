@@ -56,6 +56,22 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </title>
+                        <username translate="label" module="mp_socials">
+                            <label>Username</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </username>
+                        <password translate="label" module="mp_socials">
+                            <label>Password</label>
+                            <frontend_type>password</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </password>
                         <profile_link translate="label" module="mp_socials">
                             <label>Profile Link</label>
                             <frontend_type>text</frontend_type>
@@ -109,24 +125,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </client_enabled>
-                        <username translate="label" module="mp_socials">
-                            <label>Username</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>20</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <depends><client_enabled>1</client_enabled></depends>
-                        </username>
-                        <password translate="label" module="mp_socials">
-                            <label>Password</label>
-                            <frontend_type>password</frontend_type>
-                            <sort_order>30</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <depends><client_enabled>1</client_enabled></depends>
-                        </password>
                         <client_id translate="label" module="mp_socials">
                             <label>Google API Client ID</label>
                             <frontend_type>text</frontend_type>

@@ -7,10 +7,15 @@ app/code/community/MP/Socials/Model/Resource/Social/Collection.php app/code/comm
 app/code/community/MP/Socials/Model/Oauth2/Client.php app/code/community/MP/Socials/Model/Oauth2/Client.php
 app/code/community/MP/Socials/Model/Oauth2/Exception.php app/code/community/MP/Socials/Model/Oauth2/Exception.php
 app/code/community/MP/Socials/Model/Info.php app/code/community/MP/Socials/Model/Info.php
+app/code/community/MP/Socials/Model/Google/Oauth2/Client.php app/code/community/MP/Socials/Model/Google/Oauth2/Client.php
+app/code/community/MP/Socials/Model/Google/Info.php app/code/community/MP/Socials/Model/Google/Info.php
 app/code/community/MP/Socials/Model/Social.php app/code/community/MP/Socials/Model/Social.php
 app/code/community/MP/Socials/Model/Facebook/Oauth2/Client.php app/code/community/MP/Socials/Model/Facebook/Oauth2/Client.php
 app/code/community/MP/Socials/Model/Facebook/Info.php app/code/community/MP/Socials/Model/Facebook/Info.php
 app/code/community/MP/Socials/controllers/FacebookController.php app/code/community/MP/Socials/controllers/FacebookController.php
+app/code/community/MP/Socials/controllers/TwitterController.php app/code/community/MP/Socials/controllers/TwitterController.php
+app/code/community/MP/Socials/controllers/LinkedinController.php app/code/community/MP/Socials/controllers/LinkedinController.php
+app/code/community/MP/Socials/controllers/GoogleController.php app/code/community/MP/Socials/controllers/GoogleController.php
 app/code/community/MP/Socials/Controller/Abstract.php app/code/community/MP/Socials/Controller/Abstract.php
 app/code/community/MP/Socials/Trait.php app/code/community/MP/Socials/Trait.php
 app/code/community/MP/Socials/Helper/Facebook.php app/code/community/MP/Socials/Helper/Facebook.php

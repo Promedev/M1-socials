@@ -36,6 +36,21 @@ abstract class MP_Socials_Controller_Abstract extends Mage_Core_Controller_Front
     use MP_Socials_Trait;
 
     /**
+     * @const string
+     */
+    protected $authProvider;
+
+    /**
+     * Get data helper object
+     *
+     * @return MP_Socials_Helper_Data|Mage_Core_Helper_Abstract
+     */
+    public function helper()
+    {
+        return Mage::helper(sprintf('mp_socials/%s', $this->authProvider));
+    }
+
+    /**
      * Connect account action
      *
      * @return void
@@ -45,18 +60,11 @@ abstract class MP_Socials_Controller_Abstract extends Mage_Core_Controller_Front
         try {
             $this->connectCallback();
         } catch (Exception $e) {
-            $this->getCoreSession()->addError($e->getMessage());
+            $this->getSession()->addError($e->getMessage());
         }
 
         $this->loginPostRedirect();
     }
-
-    /**
-     * Connect callback action
-     *
-     * @return void
-     */
-    abstract public function connectCallback();
 
     /**
      * Disconnect account action
@@ -70,19 +78,152 @@ abstract class MP_Socials_Controller_Abstract extends Mage_Core_Controller_Front
         try {
             $this->disconnectCallback($customer);
         } catch (Exception $e) {
-            $this->getCoreSession()->addError($e->getMessage());
+            $this->getSession()->addError($e->getMessage());
         }
 
         $this->loginPostRedirect();
     }
 
     /**
-     * Disconnect callback action
+     * Connect account action
+     *
+     * @return $this
+     * @throws Exception
+     */
+    public function connectCallback()
+    {
+        $errorCode = $this->getRequest()->getParam('error');
+        $code      = $this->getRequest()->getParam('code');
+        $state     = $this->getRequest()->getParam('state');
+
+        /**
+         * @var MP_Socials_Helper_Data $helper
+         * @var MP_Socials_Model_Info $info
+         * @var string $title
+         */
+        $helper = $this->helper();
+        $info   = $helper->getInfoModel();
+        $title  = $helper->getTitle();
+
+        if (!($errorCode || $code) && !$state) {
+            throw new Exception($this->__('Access denied.'));
+        }
+
+        if (!$state || $state != $this->helper()->getCsrf()) {
+            throw new Exception($this->__('CSRF invalid.'));
+        }
+
+        if ($errorCode) {
+            throw new Exception($this->__('Sorry, "%s" error occurred. Please try again.', $errorCode));
+        }
+
+        if (!$code) {
+            throw new Exception($this->__('Code invalid.'));
+        }
+
+        /**
+         * @var mixed $token
+         */
+        $token = $info->getClient()->getAccessToken($code);
+
+        /**
+         * Connect with the social network
+         */
+        $info->connect();
+
+        $customersByAuthId = $helper->getCustomersByAuthId($info->getId());
+
+        if ($this->getCustomerSession()->isLoggedIn()) {
+            if ($customersByAuthId->getSize()) {
+                throw new Exception(
+                    $this->__('Your %s account is already connected to one of our store accounts.', $title)
+                );
+            }
+
+            /** @var Mage_Customer_Model_Customer $customer */
+            $customer = $this->getCustomerSession()->getCustomer();
+            $helper->connectByAuthId($customer, $info->getId(), $token);
+
+            $this->getSession()->addSuccess(
+                $this->__(
+                    'Your %s account is now connected to your store account. ' .
+                    'You can login using our %s Login button or using store account credentials you will ' .
+                    'receive to your email address.',
+                    $title,
+                    $title
+                )
+            );
+
+            return $this;
+        }
+
+        if ($customersByAuthId->getSize()) {
+            /** @var Mage_Customer_Model_Customer $customer */
+            $customer = $customersByAuthId->getFirstItem();
+            $helper->loginByCustomer($customer);
+
+            $this->getSession()->addSuccess(
+                $this->__('You have successfully logged in using your %s account.', $title)
+            );
+
+            return $this;
+        }
+
+        /** @var Mage_Customer_Model_Resource_Customer_Collection $customersByEmail */
+        $customersByEmail = $helper->getCustomersByEmail($info->getEmail());
+
+        if ($customersByEmail->getSize()) {
+            /** @var Mage_Customer_Model_Customer $customer */
+            $customer = $customersByEmail->getFirstItem();
+            $helper->connectByAuthId($customer, $info->getId(), $token);
+
+            $this->getSession()->addSuccess(
+                $this->__(
+                    'We have discovered you already have an account at our store. Your %s account is ' .
+                    'now connected to your store account.',
+                    $title
+                )
+            );
+
+            return $this;
+        }
+
+        $helper->validate($info);
+        $helper->connectByCreatingAccount($info, $token);
+
+        $this->getSession()->addSuccess(
+            $this->__(
+                'Your %s account is now connected to your new user account at our store. ' .
+                'Now you can login using our %s Login button.',
+                $title,
+                $title
+            )
+        );
+
+        return $this;
+    }
+
+    /**
+     * Disconnect action
      *
      * @param Mage_Customer_Model_Customer $customer
      * @return void
      */
-    abstract public function disconnectCallback($customer);
+    public function disconnectCallback($customer)
+    {
+        /**
+         * @var MP_Socials_Helper_Data $helper
+         * @var string $title
+         */
+        $helper = $this->helper();
+        $title  = $helper->getTitle();
+
+        $helper->disconnect($customer);
+
+        $this->getSession()->addSuccess(
+            $this->__('You have successfully disconnected your %s account from our store account.', $title)
+        );
+    }
 
     /**
      * Define target URL and redirect customer after logging in
@@ -163,8 +304,8 @@ abstract class MP_Socials_Controller_Abstract extends Mage_Core_Controller_Front
      *
      * @return Mage_Core_Model_Session
      */
-    protected function getCoreSession()
+    protected function getSession()
     {
-        return $this->helper()->getCoreSession();
+        return $this->helper()->getSession();
     }
 }

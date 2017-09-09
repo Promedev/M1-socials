@@ -25,16 +25,16 @@
  */
 
 /**
- * Class MP_Socials_FacebookController
+ * Class MP_Socials_GoogleController
  *
  * @category   MP
  * @package    MP_Socials
  * @author     Merchant Protocol Team <info@merchantprotocol.com>
  */
-class MP_Socials_FacebookController extends MP_Socials_Controller_Abstract
+class MP_Socials_GoogleController extends MP_Socials_Controller_Abstract
 {
     /**
      * @const string
      */
-    protected $authProvider = MP_Socials_Helper_Facebook::AUTH_PROVIDER;
+    protected $authProvider = MP_Socials_Helper_Google::AUTH_PROVIDER;
 }

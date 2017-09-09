@@ -262,7 +262,7 @@ abstract class MP_Socials_Model_Oauth2_Client extends Varien_Object
             'GET',
             [
                 'client_id'         => $this->getClientId(),
-                'client_secret'     => $this->getClientS,
+                'client_secret'     => $this->getClientSecret(),
                 'fb_exchange_token' => $this->token->access_token,
                 'grant_type'        => 'fb_exchange_token'
             ]

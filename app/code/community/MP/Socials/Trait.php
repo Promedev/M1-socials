@@ -49,6 +49,24 @@ trait MP_Socials_Trait
     }
 
     /**
+     * Get social helper object
+     *
+     * @param null|string $authProvider
+     * @return MP_Socials_Helper_Data
+     * @throws Exception
+     */
+    public function getSocialHelper($authProvider = null)
+    {
+        $helper = Mage::helper(sprintf('mp_socials/%s', $authProvider));
+
+        if (!$helper instanceof MP_Socials_Helper_Data) {
+            throw new Exception($this->__('Provider helper not found.'));
+        }
+
+        return $helper;
+    }
+
+    /**
      * Get data helper object
      *
      * @return MP_Socials_Helper_Data

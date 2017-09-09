@@ -27,9 +27,9 @@
 /**
  * Abstract Class MP_Socials_Model_Info
  *
- * @method string getFirstName()
+ * @method string getFirstname()
  * @method string getEmail()
- * @method string getLastName()
+ * @method string getLastname()
  * @method string getBirthday()
  * @method string getGender()
  *
@@ -54,6 +54,11 @@ abstract class MP_Socials_Model_Info extends Varien_Object
     protected $requestUri    = '';
     protected $requestMethod = Zend_Http_Client::GET;
     protected $requestParams = [];
+
+    /**
+     * @var array
+     */
+    protected $responseMap = [];
 
     /**
      * Get client
@@ -120,6 +125,8 @@ abstract class MP_Socials_Model_Info extends Varien_Object
             );
 
             foreach ($response as $key => $value) {
+                $key = array_search($key, $this->responseMap) ?: $key;
+
                 $this->{$key} = $value;
             }
         } catch (MP_Socials_Model_Oauth2_Exception $e) {
@@ -197,6 +204,6 @@ abstract class MP_Socials_Model_Info extends Varien_Object
      */
     protected function getCoreSession()
     {
-        return $this->helper()->getCoreSession();
+        return $this->helper()->getSession();
     }
 }
