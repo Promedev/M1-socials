@@ -30,7 +30,7 @@
  * @method string getFirstname()
  * @method string getEmail()
  * @method string getLastname()
- * @method string getBirthday()
+ * @method string getDob()
  * @method string getGender()
  *
  * @category   MP
@@ -50,10 +50,12 @@ abstract class MP_Socials_Model_Info extends Varien_Object
      * @var string
      * @var string
      * @var array
+     * @var array
      */
     protected $requestUri    = '';
     protected $requestMethod = Zend_Http_Client::GET;
     protected $requestParams = [];
+    protected $requestFields = [];
 
     /**
      * @var array
@@ -111,6 +113,16 @@ abstract class MP_Socials_Model_Info extends Varien_Object
     }
 
     /**
+     * Get request fields
+     *
+     * @return array
+     */
+    public function getRequestFields()
+    {
+        return $this->requestFields;
+    }
+
+    /**
      * Connect with the social network
      *
      * @return $this
@@ -121,13 +133,29 @@ abstract class MP_Socials_Model_Info extends Varien_Object
             $response = $this->client->api(
                 $this->requestUri,
                 $this->requestMethod,
-                $this->getRequestParams()
+                $this->getRequestParams(),
+                $this->getRequestFields()
             );
 
             foreach ($response as $key => $value) {
                 $key = array_search($key, $this->responseMap) ?: $key;
+                $this->setData($key, $value);
+            }
 
-                $this->{$key} = $value;
+            foreach ($this->responseMap as $locKey => $extKey) {
+                $extKeys = explode('/', $extKey);
+
+                if (count($extKeys) <= 1) {
+                    continue;
+                }
+
+                $extValue = clone $response;
+
+                foreach ($extKeys as $item) {
+                    $extValue = $extValue->{$item};
+                }
+
+                $this->setData($locKey, $extValue);
             }
         } catch (MP_Socials_Model_Oauth2_Exception $e) {
             $this->exception($e);

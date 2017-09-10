@@ -47,7 +47,12 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
      * @const string
      */
     const AUTH_REDIRECT_URL_KEY = 'auth_redirect_url';
-    
+
+    /**
+     * @const string
+     */
+    const CUSTOMER_ENTITY = 'customer';
+
     /**
      * @var string
      */
@@ -67,17 +72,6 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
      * @var array
      */
     protected $socialOptions = [];
-
-    /**
-     * Checks if module is enabled
-     *
-     * @todo Not implemented
-     * @return bool
-     */
-    public function isEnabled()
-    {
-        return true;
-    }
 
     /**
      * Get info model
@@ -125,6 +119,28 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
         $customer->setData('email', $info->getEmail());
         $customer->setData('firstname', $info->getFirstname());
         $customer->setData('lastname', $info->getLastname());
+
+        if ($dob = $info->getDob()) {
+            $dob = Mage::app()->getLocale()->date($dob, null, null, false)->toString(Varien_Date::DATE_INTERNAL_FORMAT);
+            $customer->setData('dob', $dob);
+        }
+
+        if ($gender = $info->getGender()) {
+            switch ($gender) {
+                case 'male':
+                    $gender = 1;
+                    break;
+                case 'female':
+                    $gender = 2;
+                    break;
+                default:
+                    $gender = null;
+                    break;
+            }
+
+            $customer->setData('gender', $gender);
+        }
+
         $customer->setPassword($customer->generatePassword(10));
         $customer->setData('confirmation', null);
         $customer->save();
@@ -326,6 +342,10 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function validate($info)
     {
+        if (!$info->getEmail()) {
+            Mage::throwException($this->__('Could not retrieve your account email.'));
+        }
+
         if (!$info->getFirstname()) {
             Mage::throwException($this->__('Could not retrieve your account first name.'));
         }
@@ -334,8 +354,12 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
             Mage::throwException($this->__('Could not retrieve your account last name.'));
         }
 
-        if (!$info->getEmail()) {
-            Mage::throwException($this->__('Could not retrieve your account email.'));
+        if (($this->isEnabledAttribute('dob') && $this->isRequiredAttribute('dob')) && !$info->getDob()) {
+            // Mage::throwException($this->__('Could not retrieve your account birthday.'));
+        }
+
+        if (($this->isEnabledAttribute('gender') && $this->isRequiredAttribute('gender')) && !$info->getDob()) {
+            // Mage::throwException($this->__('Could not retrieve your account gender.'));
         }
 
         return $this;
@@ -420,9 +444,7 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getConfig($property)
     {
-        $config = Mage::getStoreConfig(sprintf('mp_socials/%s', $this->authProvider));
-
-        return $config[$property];
+        return Mage::getStoreConfig(sprintf('mp_socials/%s/%s', $this->authProvider, $property));
     }
     
     /**
@@ -473,6 +495,28 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     public function getIconClass()
     {
         return $this->getConfig('icon_class');
+    }
+
+    /**
+     * Check if customer attribute enabled in system
+     *
+     * @param string $attributeCode
+     * @return bool
+     */
+    public function isEnabledAttribute($attributeCode)
+    {
+        return (bool) $this->getAttribute($attributeCode)->getIsVisible();
+    }
+
+    /**
+     * Check if customer attribute marked as required
+     *
+     * @param string $attributeCode
+     * @return bool
+     */
+    public function isRequiredAttribute($attributeCode)
+    {
+        return (bool) $this->getAttribute($attributeCode)->getIsRequired();
     }
 
     /**
@@ -555,5 +599,16 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     public function getSession()
     {
         return Mage::getSingleton('core/session');
+    }
+
+    /**
+     * Retrieve customer attribute instance
+     *
+     * @param string $attributeCode
+     * @return Mage_Customer_Model_Attribute|false
+     */
+    protected function getAttribute($attributeCode)
+    {
+        return Mage::getSingleton('eav/config')->getAttribute(self::CUSTOMER_ENTITY, $attributeCode);
     }
 }

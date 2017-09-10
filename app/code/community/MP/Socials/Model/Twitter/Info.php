@@ -25,47 +25,28 @@
  */
 
 /**
- * Class MP_Socials_Model_Facebook_Info
+ * Class MP_Socials_Model_Twitter_Info
  *
  * @category   MP
  * @package    MP_Socials
  * @author     Merchant Protocol Team <info@merchantprotocol.com>
  */
-class MP_Socials_Model_Facebook_Info extends MP_Socials_Model_Info
+class MP_Socials_Model_Twitter_Info extends MP_Socials_Model_Info
 {
     /**
      * @var string
      */
-    protected $requestUri = '/me';
+    protected $requestUri = '/account/verify_credentials.json';
 
     /**
      * @var array
      */
     protected $requestParams = [
-        'id',
-        'name',
-        'first_name',
-        'last_name',
-        'link',
-        'birthday',
-        'gender',
-        'email',
-        'picture.type(large)'
+        'skip_status' => true
     ];
 
     /**
-     * @var array
-     */
-    protected $responseMap = [
-        'firstname'   => 'first_name',
-        'lastname'    => 'last_name',
-        'dob'         => 'birthday',
-        'profile_url' => 'link',
-        'picture_url' => 'picture/data/url'
-    ];
-
-    /**
-     * MP_Socials_Model_Facebook_Info constructor
+     * MP_Socials_Model_Twitter_Info constructor
      *
      * @return void
      */
@@ -73,33 +54,22 @@ class MP_Socials_Model_Facebook_Info extends MP_Socials_Model_Info
     {
         parent::_construct();
 
-        $this->client = Mage::getSingleton('mp_socials/facebook_oauth2_client');
+        $this->client = Mage::getSingleton('mp_socials/twitter_oauth2_client');
     }
 
     /**
-     * Get request params
-     *
-     * @return array
-     */
-    public function getRequestParams()
-    {
-        return ['fields' => implode(',', $this->requestParams)];
-    }
-
-    /**
-     * Disconnect from the social network
+     * Connect with the social network
      *
      * @return $this
      */
-    public function disconnect()
+    public function connect()
     {
-        try {
-            $this->client->api('/me/permissions', Zend_Http_Client::DELETE, []);
-        } catch (MP_Socials_Model_Oauth2_Exception $e) {
-            $this->exception($e);
-        } catch (Exception $e) {
-            $this->exception($e);
-        }
+        parent::connect();
+
+        /**
+         * Twitter doesn't allow email access trough API
+         */
+        $this->setData('email', sprintf('%s@twitter-user.com', strtolower($this->getData('screen_name'))));
 
         return $this;
     }

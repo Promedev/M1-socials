@@ -62,6 +62,11 @@ class MP_Socials_Model_Google_Oauth2_Client extends MP_Socials_Model_Oauth2_Clie
     ];
 
     /**
+     * @var array
+     */
+    protected $scopeSeparator = ' ';
+
+    /**
      * @var string
      */
     protected $access = 'offline';
@@ -70,46 +75,6 @@ class MP_Socials_Model_Google_Oauth2_Client extends MP_Socials_Model_Oauth2_Clie
      * @var string
      */
     protected $prompt = 'auto';
-
-    /**
-     * @return string
-     */
-    public function getAccess()
-    {
-        return $this->access;
-    }
-
-    /**
-     * @param string $access
-     */
-    public function setAccess($access)
-    {
-        $this->access = $access;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPrompt()
-    {
-        return $this->prompt;
-    }
-
-    /**
-     * @param string $prompt
-     */
-    public function setPrompt($prompt)
-    {
-        $this->access = $prompt;
-    }
-
-    /**
-     * @param string $token
-     */
-    public function setAccessToken($token)
-    {
-        $this->token = json_decode($token);
-    }
 
     /**
      * @param null|string $code
@@ -127,69 +92,16 @@ class MP_Socials_Model_Google_Oauth2_Client extends MP_Socials_Model_Oauth2_Clie
     }
 
     /**
-     * @return string
-     */
-    public function createAuthUrl()
-    {
-        return $this->oauth2AuthUri
-            . '?response_type='   . 'code'
-            . '&redirect_uri='    . $this->getRedirectUri()
-            . '&client_id='       . $this->getClientId()
-            . '&scope='           . implode(' ', $this->getScope())
-            . '&state='           . $this->getState()
-            . '&access_type='     . $this->getAccess()
-            . '&approval_prompt=' . $this->getPrompt();
-    }
-
-    /**
-     * @return void
-     * @throws Exception
-     */
-    public function revokeToken()
-    {
-        if (empty($this->token)) {
-            throw new Exception($this->helper()->__('No access token available.'));
-        }
-
-        if (empty($this->token->refresh_token)) {
-            throw new Exception($this->helper()->__('No refresh token, nothing to revoke.'));
-        }
-
-        $this->httpRequest(
-            $this->oauth2RevokeUri,
-            Zend_Http_Client::POST,
-            [
-                'token' => $this->token->refresh_token
-            ]
-        );
-    }
-
-    /**
      * @param string $code
-     * @return void
+     * @return mixed|null
      * @throws Exception
      */
     protected function fetchAccessToken($code)
-    {        
-        if (!$code) {
-            throw new Exception($this->helper()->__('Unable to retrieve access code.'));
-        }
-        
-        $response = $this->httpRequest(
-            $this->oauth2TokenUri,
-            Zend_Http_Client::POST,
-            [
-                'code'          => $code,
-                'redirect_uri'  => $this->getRedirectUri(),
-                'client_id'     => $this->getClientId(),
-                'client_secret' => $this->getClientSecret(),
-                'grant_type'    => 'authorization_code'
-            ]
-        );
+    {
+        $token = parent::fetchAccessToken($code);
+        $token->created = time();
 
-        $response->created = time();
-
-        $this->token = $response;
+        return $token;
     }
 
     /**
@@ -198,7 +110,7 @@ class MP_Socials_Model_Google_Oauth2_Client extends MP_Socials_Model_Oauth2_Clie
      */
     protected function refreshAccessToken()
     {
-        if (empty($this->token->refresh_token)) {
+        if (!$this->token->refresh_token) {
             throw new Exception($this->helper()->__('No refresh token, unable to refresh access token.'));
         }
 

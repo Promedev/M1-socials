@@ -71,6 +71,41 @@ abstract class MP_Socials_Model_Oauth2_Client extends Varien_Object
     protected $oauth2TokenUri;
 
     /**
+     * @var string
+     */
+    protected $oauth2RevokeUri;
+
+    /**
+     * @var string
+     */
+    protected $state;
+
+    /**
+     * @var array
+     */
+    protected $scope = [];
+
+    /**
+     * @var array
+     */
+    protected $scopeSeparator = ',';
+
+    /**
+     * @var string
+     */
+    protected $access;
+
+    /**
+     * @var string
+     */
+    protected $prompt;
+
+    /**
+     * @var mixed
+     */
+    protected $token;
+
+    /**
      * @var Zend_Http_Response
      */
     protected $response;
@@ -79,21 +114,6 @@ abstract class MP_Socials_Model_Oauth2_Client extends Varien_Object
      * @var mixed
      */
     protected $responseDecoded;
-
-    /**
-     * @var string
-     */
-    protected $state = '';
-
-    /**
-     * @var array
-     */
-    protected $scope = [];
-
-    /**
-     * @var
-     */
-    protected $token;
 
     /**
      * @return bool
@@ -128,15 +148,15 @@ abstract class MP_Socials_Model_Oauth2_Client extends Varien_Object
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getScope()
     {
-        return $this->scope;
+        return implode($this->scopeSeparator, $this->scope);
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getState()
     {
@@ -144,7 +164,7 @@ abstract class MP_Socials_Model_Oauth2_Client extends Varien_Object
     }
 
     /**
-     * @param mixed $state
+     * @param string $state
      */
     public function setState($state)
     {
@@ -152,13 +172,52 @@ abstract class MP_Socials_Model_Oauth2_Client extends Varien_Object
     }
 
     /**
+     * @return string
+     */
+    public function getAccess()
+    {
+        return $this->access;
+    }
+
+    /**
+     * @param string $access
+     */
+    public function setAccess($access)
+    {
+        $this->access = $access;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrompt()
+    {
+        return $this->prompt;
+    }
+
+    /**
+     * @param string $prompt
+     */
+    public function setPrompt($prompt)
+    {
+        $this->access = $prompt;
+    }
+
+    /**
      * @param string $token
+     * @return void
      */
     public function setAccessToken($token)
     {
-        $this->token = $token;
+        $this->token = json_decode($token);
+    }
 
-        $this->extendAccessToken();
+    /**
+     * @return array
+     */
+    public function getAccessParams()
+    {
+        return ['access_token' => $this->token->access_token];
     }
 
     /**
@@ -184,29 +243,46 @@ abstract class MP_Socials_Model_Oauth2_Client extends Varien_Object
      */
     public function createAuthUrl()
     {
-        return $this->oauth2AuthUri . '?'
-            . 'client_id='     . $this->getClientId()
-            . '&redirect_uri=' . $this->getRedirectUri()
-            . '&state='        . $this->getState()
-            . '&scope='        . implode(',', $this->getScope());
+        return $this->oauth2AuthUri
+            . '?response_type='   . 'code'
+            . '&redirect_uri='    . $this->getRedirectUri()
+            . '&client_id='       . $this->getClientId()
+            . '&scope='           . $this->getScope()
+            . '&state='           . $this->getState()
+            . '&access_type='     . $this->getAccess()
+            . '&approval_prompt=' . $this->getPrompt();
     }
 
     /**
      * @param string $endpoint
      * @param string $method
      * @param array $params
+     * @param array $fields
      * @return mixed
      * @throws Exception
      */
-    public function api($endpoint, $method = Zend_Http_Client::GET, $params = [])
+    public function api($endpoint, $method = Zend_Http_Client::GET, $params = [], $fields = [])
     {
         if (empty($this->token)) {
             throw new Exception($this->helper()->__('Unable to proceed without an access token.'));
         }
 
-        $url      = $this->oauth2ServiceUri . $endpoint;
+        $url = $this->oauth2ServiceUri . $endpoint;
+
+        if (!empty($params) && !empty($fields)) {
+            foreach ($params as $key => $value) {
+                $url .= '/' . $key;
+
+                if (!empty($value)) {
+                    $url .= '=' . $value;
+                }
+            }
+
+            $url .= ':(' . implode(',', $fields) . ')';
+        }
+
         $method   = strtoupper($method);
-        $params   = array_merge(['access_token' => $this->token->access_token], $params);
+        $params   = array_merge($this->getAccessParams(), $params);
         $response = $this->httpRequest($url, $method, $params);
 
         return $response;
@@ -215,9 +291,14 @@ abstract class MP_Socials_Model_Oauth2_Client extends Varien_Object
     /**
      * @param string $code
      * @return mixed|null
+     * @throws Exception
      */
     protected function fetchAccessToken($code)
     {
+        if (!$code) {
+            throw new Exception($this->helper()->__('Unable to retrieve access code.'));
+        }
+
         $response = $this->httpRequest(
             $this->oauth2TokenUri,
             Zend_Http_Client::POST,
@@ -232,43 +313,7 @@ abstract class MP_Socials_Model_Oauth2_Client extends Varien_Object
 
         $this->token = $response;
 
-        $this->extendAccessToken();
-
         return $this->token;
-    }
-
-    /**
-     * @return mixed|null
-     * @throws Exception
-     */
-    public function extendAccessToken()
-    {
-        if (empty($this->token)) {
-            throw new Exception($this->helper()->__('No token set, nothing to extend.'));
-        }
-
-        /**
-         * Expires not set or expires over two hours means long lived token
-         */
-        if (!property_exists($this->token, 'expires') || $this->token->expires > 7200) {
-            /**
-             * Long lived token, no need to extend
-             */
-            return null;
-        }
-
-        $response = $this->httpRequest(
-            $this->oauth2TokenUri,
-            'GET',
-            [
-                'client_id'         => $this->getClientId(),
-                'client_secret'     => $this->getClientSecret(),
-                'fb_exchange_token' => $this->token->access_token,
-                'grant_type'        => 'fb_exchange_token'
-            ]
-        );
-
-        return $this->token = $response;
     }
 
     /**

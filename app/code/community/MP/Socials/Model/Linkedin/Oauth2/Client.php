@@ -25,38 +25,62 @@
  */
 
 /**
- * Class MP_Socials_Model_Google_Info
+ * Class MP_Socials_Model_Linkedin_Oauth2_Client
  *
  * @category   MP
  * @package    MP_Socials
  * @author     Merchant Protocol Team <info@merchantprotocol.com>
  */
-class MP_Socials_Model_Google_Info extends MP_Socials_Model_Info
+class MP_Socials_Model_Linkedin_Oauth2_Client extends MP_Socials_Model_Oauth2_Client
 {
     /**
      * @var string
      */
-    protected $requestUri = '/userinfo';
+    protected $redirectUriRoute = 'socials/linkedin/connect';
+
+    /**
+     * @var string
+     */
+    protected $xmlPathEnabled      = 'mp_socials/linkedin/client_enabled';
+    protected $xmlPathClientId     = 'mp_socials/linkedin/client_id';
+    protected $xmlPathClientSecret = 'mp_socials/linkedin/client_secret';
+
+    /**
+     * @var string
+     */
+    protected $oauth2ServiceUri = 'https://api.linkedin.com/v1';
+    protected $oauth2AuthUri    = 'https://www.linkedin.com/uas/oauth2/authorization';
+    protected $oauth2TokenUri   = 'https://www.linkedin.com/uas/oauth2/accessToken';
 
     /**
      * @var array
      */
-    protected $responseMap = [
-        'firstname'   => 'given_name',
-        'lastname'    => 'family_name',
-        'profile_url' => 'link',
-        'picture_url' => 'picture'
+    protected $scope = [
+        'r_basicprofile',
+        'r_emailaddress'
     ];
 
     /**
-     * MP_Socials_Model_Google_Info constructor
-     *
-     * @return void
+     * @return array
      */
-    public function _construct()
+    public function getAccessParams()
     {
-        parent::_construct();
+        return [
+            'oauth2_access_token' => $this->token->access_token,
+            'format'              => 'json'
+        ];
+    }
 
-        $this->client = Mage::getSingleton('mp_socials/google_oauth2_client');
+    /**
+     * @param null|string $code
+     * @return string
+     */
+    public function getAccessToken($code = null)
+    {
+        if (empty($this->token)) {
+            $this->fetchAccessToken($code);
+        }
+
+        return json_encode($this->token);
     }
 }

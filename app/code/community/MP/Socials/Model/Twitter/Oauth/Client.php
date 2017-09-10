@@ -25,38 +25,29 @@
  */
 
 /**
- * Class MP_Socials_Model_Google_Info
+ * Class MP_Socials_Model_Twitter_Oauth_Client
  *
  * @category   MP
  * @package    MP_Socials
  * @author     Merchant Protocol Team <info@merchantprotocol.com>
  */
-class MP_Socials_Model_Google_Info extends MP_Socials_Model_Info
+class MP_Socials_Model_Twitter_Oauth_Client extends MP_Socials_Model_Oauth2_Client
 {
     /**
      * @var string
      */
-    protected $requestUri = '/userinfo';
+    protected $redirectUriRoute = 'socials/twitter/connect';
 
     /**
-     * @var array
+     * @var string
      */
-    protected $responseMap = [
-        'firstname'   => 'given_name',
-        'lastname'    => 'family_name',
-        'profile_url' => 'link',
-        'picture_url' => 'picture'
-    ];
+    protected $xmlPathEnabled      = 'mp_socials/twitter/client_enabled';
+    protected $xmlPathClientId     = 'mp_socials/twitter/client_id';
+    protected $xmlPathClientSecret = 'mp_socials/twitter/client_secret';
 
     /**
-     * MP_Socials_Model_Google_Info constructor
-     *
-     * @return void
+     * @var string
      */
-    public function _construct()
-    {
-        parent::_construct();
-
-        $this->client = Mage::getSingleton('mp_socials/google_oauth2_client');
-    }
+    protected $oauth2ServiceUri = 'https://api.twitter.com/1.1';
+    protected $oauth2AuthUri    = 'https://api.twitter.com/oauth';
 }

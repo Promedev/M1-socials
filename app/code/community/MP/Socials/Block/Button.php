@@ -55,6 +55,22 @@ class MP_Socials_Block_Button extends Mage_Core_Block_Template
     }
 
     /**
+     * Get auth provider
+     *
+     * @return string
+     */
+    public function getAuthProvider()
+    {
+        $authProvider = trim(strtolower($this->_getData('auth_provider')));
+
+        if (!$authProvider) {
+            Mage::throwException($this->__('Auth Provider is empty.'));
+        }
+
+        return $authProvider;
+    }
+
+    /**
      * Get button url
      *
      * @return string
@@ -95,22 +111,6 @@ class MP_Socials_Block_Button extends Mage_Core_Block_Template
     }
 
     /**
-     * Get auth provider
-     *
-     * @return string
-     */
-    public function getAuthProvider()
-    {
-        $authProvider = trim(strtolower($this->_getData('auth_provider')));
-
-        if (!$authProvider) {
-            Mage::throwException($this->__('Auth Provider is empty.'));
-        }
-
-        return $authProvider;
-    }
-
-    /**
      * Get social helper
      *
      * @return MP_Socials_Helper_Data|Mage_Core_Helper_Abstract
@@ -146,11 +146,11 @@ class MP_Socials_Block_Button extends Mage_Core_Block_Template
     /**
      * Get store config data
      *
-     * @param string $key
+     * @param string $property
      * @return string
      */
-    protected function getConfig($key)
+    protected function getConfig($property)
     {
-        return Mage::getStoreConfig(sprintf('mp_socials/%s/%s', $this->getAuthProvider(), $key));
+        return $this->helper()->getConfig($property);
     }
 }

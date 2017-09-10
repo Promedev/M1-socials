@@ -62,8 +62,56 @@ class MP_Socials_Model_Facebook_Oauth2_Client extends MP_Socials_Model_Oauth2_Cl
     ];
 
     /**
-     * Response treatment
-     *
+     * @param mixed $token
+     * @return void
+     */
+    public function setAccessToken($token)
+    {
+        $this->token = $token;
+        $this->extendAccessToken();
+    }
+
+    /**
+     * @param string $code
+     * @return mixed|null
+     */
+    protected function fetchAccessToken($code)
+    {
+        $token = parent::fetchAccessToken($code);
+        $this->extendAccessToken();
+
+        return $token;
+    }
+
+    /**
+     * @return mixed|null
+     * @throws Exception
+     */
+    public function extendAccessToken()
+    {
+        if (empty($this->token)) {
+            throw new Exception($this->helper()->__('No token set, nothing to extend.'));
+        }
+
+        if (!property_exists($this->token, 'expires') || $this->token->expires > 7200) {
+            return null;
+        }
+
+        $response = $this->httpRequest(
+            $this->oauth2TokenUri,
+            Zend_Http_Client::GET,
+            [
+                'client_id'         => $this->getClientId(),
+                'client_secret'     => $this->getClientSecret(),
+                'fb_exchange_token' => $this->token->access_token,
+                'grant_type'        => 'fb_exchange_token'
+            ]
+        );
+
+        return $this->token = $response;
+    }
+
+    /**
      * @return void
      */
     protected function responseTreatment()

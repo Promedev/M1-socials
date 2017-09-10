@@ -25,47 +25,53 @@
  */
 
 /**
- * Class MP_Socials_Model_Facebook_Info
+ * Class MP_Socials_Model_Linkedin_Info
  *
  * @category   MP
  * @package    MP_Socials
  * @author     Merchant Protocol Team <info@merchantprotocol.com>
  */
-class MP_Socials_Model_Facebook_Info extends MP_Socials_Model_Info
+class MP_Socials_Model_Linkedin_Info extends MP_Socials_Model_Info
 {
     /**
      * @var string
      */
-    protected $requestUri = '/me';
+    protected $requestUri = '/people';
 
     /**
      * @var array
      */
     protected $requestParams = [
+        '~' => ''
+    ];
+
+    /**
+     * @var array
+     */
+    protected $requestFields = [
         'id',
-        'name',
-        'first_name',
-        'last_name',
-        'link',
-        'birthday',
-        'gender',
-        'email',
-        'picture.type(large)'
+        'first-name',
+        'last-name',
+        'email-address',
+        'picture-url',
+        'public-profile-url',
+        'site-standard-profile-request'
     ];
 
     /**
      * @var array
      */
     protected $responseMap = [
-        'firstname'   => 'first_name',
-        'lastname'    => 'last_name',
-        'dob'         => 'birthday',
-        'profile_url' => 'link',
-        'picture_url' => 'picture/data/url'
+        'email'       => 'emailAddress',
+        'firstname'   => 'firstName',
+        'lastname'    => 'lastName',
+        'profile_url' => 'publicProfileUrl',
+        'picture_url' => 'pictureUrl'
     ];
 
+
     /**
-     * MP_Socials_Model_Facebook_Info constructor
+     * MP_Socials_Model_Linkedin_Info constructor
      *
      * @return void
      */
@@ -73,34 +79,6 @@ class MP_Socials_Model_Facebook_Info extends MP_Socials_Model_Info
     {
         parent::_construct();
 
-        $this->client = Mage::getSingleton('mp_socials/facebook_oauth2_client');
-    }
-
-    /**
-     * Get request params
-     *
-     * @return array
-     */
-    public function getRequestParams()
-    {
-        return ['fields' => implode(',', $this->requestParams)];
-    }
-
-    /**
-     * Disconnect from the social network
-     *
-     * @return $this
-     */
-    public function disconnect()
-    {
-        try {
-            $this->client->api('/me/permissions', Zend_Http_Client::DELETE, []);
-        } catch (MP_Socials_Model_Oauth2_Exception $e) {
-            $this->exception($e);
-        } catch (Exception $e) {
-            $this->exception($e);
-        }
-
-        return $this;
+        $this->client = Mage::getSingleton('mp_socials/linkedin_oauth2_client');
     }
 }
