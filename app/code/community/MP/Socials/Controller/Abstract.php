@@ -96,6 +96,10 @@ abstract class MP_Socials_Controller_Abstract extends Mage_Core_Controller_Front
         $code      = $this->getRequest()->getParam('code');
         $state     = $this->getRequest()->getParam('state');
 
+        if (!$code) {
+            $code  = $this->getRequest()->getParam('oauth_token');
+        }
+
         /**
          * @var MP_Socials_Helper_Data $helper
          * @var MP_Socials_Model_Info $info

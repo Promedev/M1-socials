@@ -106,6 +106,13 @@ abstract class MP_Socials_Model_Oauth2_Client extends Varien_Object
     protected $token;
 
     /**
+     * @var array
+     */
+    protected $requestConfig = [
+        'timeout' => 60
+    ];
+
+    /**
      * @var Zend_Http_Response
      */
     protected $response;
@@ -317,15 +324,15 @@ abstract class MP_Socials_Model_Oauth2_Client extends Varien_Object
     }
 
     /**
-     * @param string $url
+     * @param string $uri
      * @param string $method
      * @param array $params
      * @return mixed
      * @throws Exception
      */
-    protected function httpRequest($url, $method = Zend_Http_Client::GET, $params = [])
+    protected function httpRequest($uri, $method = Zend_Http_Client::GET, $params = [])
     {
-        $client = new Zend_Http_Client($url, ['timeout' => 60]);
+        $client = new Zend_Http_Client($uri, $this->requestConfig);
 
         switch ($method) {
             case Zend_Http_Client::GET:
@@ -374,6 +381,14 @@ abstract class MP_Socials_Model_Oauth2_Client extends Varien_Object
         }
 
         throw new Exception($this->helper()->__('HTTP error %d occurred while issuing request.', $status));
+    }
+
+    /**
+     * @return Mage_Core_Model_Session
+     */
+    protected function getSession()
+    {
+        return $this->helper()->getSession();
     }
 
     /**

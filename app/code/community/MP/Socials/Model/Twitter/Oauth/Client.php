@@ -25,13 +25,13 @@
  */
 
 /**
- * Class MP_Socials_Model_Twitter_Oauth_Client
+ * Class MP_Socials_Model_Twitter_Oauth2_Client
  *
  * @category   MP
  * @package    MP_Socials
  * @author     Merchant Protocol Team <info@merchantprotocol.com>
  */
-class MP_Socials_Model_Twitter_Oauth_Client extends MP_Socials_Model_Oauth2_Client
+class MP_Socials_Model_Twitter_Oauth2_Client extends MP_Socials_Model_Oauth2_Client
 {
     /**
      * @var string
@@ -50,4 +50,142 @@ class MP_Socials_Model_Twitter_Oauth_Client extends MP_Socials_Model_Oauth2_Clie
      */
     protected $oauth2ServiceUri = 'https://api.twitter.com/1.1';
     protected $oauth2AuthUri    = 'https://api.twitter.com/oauth';
+    protected $oauth2TokenUri   = 'https://api.twitter.com/oauth/request_token';
+
+    /**
+     * @var Zend_Oauth_Token_Access
+     */
+    protected $token;
+
+    /**
+     * @var Zend_Oauth_Consumer
+     */
+    protected $client;
+
+    /**
+     * @var mixed
+     */
+    protected $requestToken;
+
+    /**
+     * MP_Socials_Model_Twitter_Oauth2_Client constructor
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->client = new Zend_Oauth_Consumer(
+            [
+                'callbackUrl'    => $this->getRedirectUri(),
+                'siteUrl'        => $this->oauth2AuthUri,
+                'authorizeUrl'   => $this->oauth2AuthUri . '/authenticate',
+                'consumerKey'    => $this->getClientId(),
+                'consumerSecret' => $this->getClientSecret()
+            ]
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function createAuthUrl()
+    {
+        return $this->oauth2AuthUri
+            . '/authenticate'
+            . '?oauth_token=' . $this->getRequestToken();
+    }
+
+    /**
+     * @return string
+     * @throws Exception
+     */
+    public function fetchRequestToken()
+    {
+        if (!$requestToken = $this->client->getRequestToken()) {
+            throw new Exception($this->helper()->__('Unable to retrieve request token.'));
+        }
+
+        $this->getSession()->setData('twitter_request_token', $requestToken);
+
+        return $this->requestToken = $requestToken->getToken();
+    }
+
+    /**
+     * @param string $code
+     * @return mixed|null
+     * @throws Exception
+     */
+    protected function fetchAccessToken($code)
+    {
+        if (!$params = $this->helper()->getRequest()->getParams()) {
+            throw new Exception($this->helper()->__('Unable to retrieve access code.'));
+        }
+
+        $requestToken = $this->getSession()->getData('twitter_request_token');
+
+        if (!$token = $this->client->getAccessToken($params, $requestToken)) {
+            throw new Exception($this->helper()->__('Unable to retrieve access code.'));
+        }
+
+        $this->getSession()->unsetData('twitter_request_token');
+
+        return $this->token = $token;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRequestToken()
+    {
+        if (empty($this->requestToken)) {
+            $this->fetchRequestToken();
+        }
+
+        return $this->requestToken;
+    }
+
+    /**
+     * @param string $uri
+     * @param string $method
+     * @param array $params
+     * @param array $fields
+     * @return mixed
+     * @throws Exception
+     * @throws MP_Socials_Model_Oauth2_Exception
+     */
+    protected function httpRequest($uri, $method = Zend_Http_Client::GET, $params = [], $fields = [])
+    {
+        /** @var Zend_Oauth_Client $client */
+        $client = $this->token->getHttpClient(
+            [
+                'callbackUrl'    => $this->getRedirectUri(),
+                'siteUrl'        => $this->oauth2AuthUri,
+                'consumerKey'    => $this->getClientId(),
+                'consumerSecret' => $this->getClientSecret()
+            ],
+            $uri,
+            $this->requestConfig
+        );
+
+        switch ($method) {
+            case Zend_Http_Client::GET:
+                $client->setParameterGet($params);
+                break;
+            case Zend_Http_Client::POST:
+                $client->setParameterPost($params);
+                break;
+            case Zend_Http_Client::DELETE:
+                $client->setParameterGet($params);
+                break;
+            default:
+                throw new Exception($this->helper()->__('Required HTTP method is not supported.'));
+        }
+
+        $this->response        = $client->request($method);
+        $this->responseDecoded = json_decode($this->response->getBody());
+
+        $this->responseTreatment();
+
+        return $this->responseDecoded;
+    }
 }

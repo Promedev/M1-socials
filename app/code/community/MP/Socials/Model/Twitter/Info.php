@@ -46,6 +46,13 @@ class MP_Socials_Model_Twitter_Info extends MP_Socials_Model_Info
     ];
 
     /**
+     * @var array
+     */
+    protected $responseMap = [
+        'picture_url' => 'profile_image_url'
+    ];
+
+    /**
      * MP_Socials_Model_Twitter_Info constructor
      *
      * @return void
@@ -70,6 +77,20 @@ class MP_Socials_Model_Twitter_Info extends MP_Socials_Model_Info
          * Twitter doesn't allow email access trough API
          */
         $this->setData('email', sprintf('%s@twitter-user.com', strtolower($this->getData('screen_name'))));
+        $this->setData('profile_url', sprintf('https://twitter.com/%s', $this->getData('screen_name')));
+
+        $name = explode(' ', $this->getData('name'), 2);
+
+        if (count($name) > 1) {
+            $firstname = $name[0];
+            $lastname  = $name[1];
+        } else {
+            $firstname = $name[0];
+            $lastname  = $name[0];
+        }
+
+        $this->setData('firstname', $firstname);
+        $this->setData('lastname', $lastname);
 
         return $this;
     }

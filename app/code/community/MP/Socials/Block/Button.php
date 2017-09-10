@@ -127,7 +127,7 @@ class MP_Socials_Block_Button extends Mage_Core_Block_Template
      */
     protected function _toHtml()
     {
-        $this->client = Mage::getModel(sprintf('mp_socials/%s_oauth2_client', $this->getAuthProvider()));
+        $this->client = Mage::getSingleton(sprintf('mp_socials/%s_oauth2_client', $this->getAuthProvider()));
 
         if (!$this->client instanceof MP_Socials_Model_Oauth2_Client || !$this->client->isEnabled()) {
             return '';
