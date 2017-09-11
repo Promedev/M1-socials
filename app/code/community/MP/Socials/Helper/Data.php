@@ -71,7 +71,7 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * @var array
      */
-    protected $socialOptions = [];
+    protected $_socialOptions = null;
 
     /**
      * Get info model
@@ -420,7 +420,7 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getSocialOptions()
     {
-        if (empty($this->_socialOptions)) {
+        if (is_null($this->_socialOptions)) {
             foreach ($this->authProviders as $authProvider) {
                 /** @var MP_Socials_Helper_Data $helper */
                 $helper = Mage::helper('mp_socials/' . $authProvider);
@@ -429,7 +429,7 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
                     continue;
                 }
     
-                $this->socialOptions[$authProvider] = clone $helper;
+                $this->_socialOptions[$authProvider] = clone $helper;
             }
         }
 
