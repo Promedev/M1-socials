@@ -1,4 +1,3 @@
-README.md README.md
 app/design/frontend/base/default/layout/mp/socials/default.xml app/design/frontend/base/default/layout/mp/socials/default.xml
 app/design/frontend/base/default/template/mp/socials/button.phtml app/design/frontend/base/default/template/mp/socials/button.phtml
 app/etc/modules/MP_Socials.xml app/etc/modules/MP_Socials.xml
