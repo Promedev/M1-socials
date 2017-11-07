@@ -41,12 +41,12 @@ class MP_Socials_Model_Google_Info extends MP_Socials_Model_Info
     /**
      * @var array
      */
-    protected $responseMap = [
+    protected $responseMap = array(
         'firstname'   => 'given_name',
         'lastname'    => 'family_name',
         'profile_url' => 'link',
         'picture_url' => 'picture'
-    ];
+    );
 
     /**
      * MP_Socials_Model_Google_Info constructor

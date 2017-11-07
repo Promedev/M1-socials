@@ -83,7 +83,7 @@ abstract class MP_Socials_Model_Oauth2_Client extends Varien_Object
     /**
      * @var array
      */
-    protected $scope = [];
+    protected $scope = array();
 
     /**
      * @var array
@@ -108,9 +108,9 @@ abstract class MP_Socials_Model_Oauth2_Client extends Varien_Object
     /**
      * @var array
      */
-    protected $requestConfig = [
+    protected $requestConfig = array(
         'timeout' => 60
-    ];
+    );
 
     /**
      * @var Zend_Http_Response
@@ -224,7 +224,7 @@ abstract class MP_Socials_Model_Oauth2_Client extends Varien_Object
      */
     public function getAccessParams()
     {
-        return ['access_token' => $this->token->access_token];
+        return array('access_token' => $this->token->access_token);
     }
 
     /**
@@ -268,7 +268,7 @@ abstract class MP_Socials_Model_Oauth2_Client extends Varien_Object
      * @return mixed
      * @throws Exception
      */
-    public function api($endpoint, $method = Zend_Http_Client::GET, $params = [], $fields = [])
+    public function api($endpoint, $method = Zend_Http_Client::GET, $params = array(), $fields = array())
     {
         if (empty($this->token)) {
             throw new Exception($this->helper()->__('Unable to proceed without an access token.'));
@@ -309,13 +309,13 @@ abstract class MP_Socials_Model_Oauth2_Client extends Varien_Object
         $response = $this->httpRequest(
             $this->oauth2TokenUri,
             Zend_Http_Client::POST,
-            [
+            array(
                 'code'          => $code,
                 'redirect_uri'  => $this->getRedirectUri(),
                 'client_id'     => $this->getClientId(),
                 'client_secret' => $this->getClientSecret(),
                 'grant_type'    => 'authorization_code'
-            ]
+            )
         );
 
         $this->token = $response;
@@ -330,7 +330,7 @@ abstract class MP_Socials_Model_Oauth2_Client extends Varien_Object
      * @return mixed
      * @throws Exception
      */
-    protected function httpRequest($uri, $method = Zend_Http_Client::GET, $params = [])
+    protected function httpRequest($uri, $method = Zend_Http_Client::GET, $params = array())
     {
         $client = new Zend_Http_Client($uri, $this->requestConfig);
 

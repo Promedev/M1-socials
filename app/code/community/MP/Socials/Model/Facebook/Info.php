@@ -41,7 +41,7 @@ class MP_Socials_Model_Facebook_Info extends MP_Socials_Model_Info
     /**
      * @var array
      */
-    protected $requestParams = [
+    protected $requestParams = array(
         'id',
         'name',
         'first_name',
@@ -51,18 +51,18 @@ class MP_Socials_Model_Facebook_Info extends MP_Socials_Model_Info
         'gender',
         'email',
         'picture.type(large)'
-    ];
+    );
 
     /**
      * @var array
      */
-    protected $responseMap = [
+    protected $responseMap = array(
         'firstname'   => 'first_name',
         'lastname'    => 'last_name',
         'dob'         => 'birthday',
         'profile_url' => 'link',
         'picture_url' => 'picture/data/url'
-    ];
+    );
 
     /**
      * MP_Socials_Model_Facebook_Info constructor
@@ -83,7 +83,7 @@ class MP_Socials_Model_Facebook_Info extends MP_Socials_Model_Info
      */
     public function getRequestParams()
     {
-        return ['fields' => implode(',', $this->requestParams)];
+        return array('fields' => implode(',', $this->requestParams));
     }
 
     /**
@@ -94,7 +94,7 @@ class MP_Socials_Model_Facebook_Info extends MP_Socials_Model_Info
     public function disconnect()
     {
         try {
-            $this->client->api('/me/permissions', Zend_Http_Client::DELETE, []);
+            $this->client->api('/me/permissions', Zend_Http_Client::DELETE, array());
         } catch (MP_Socials_Model_Oauth2_Exception $e) {
             $this->exception($e);
         } catch (Exception $e) {

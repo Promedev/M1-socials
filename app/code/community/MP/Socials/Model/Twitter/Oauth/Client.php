@@ -75,13 +75,13 @@ class MP_Socials_Model_Twitter_Oauth2_Client extends MP_Socials_Model_Oauth2_Cli
         parent::__construct();
 
         $this->client = new Zend_Oauth_Consumer(
-            [
+            array(
                 'callbackUrl'    => $this->getRedirectUri(),
                 'siteUrl'        => $this->oauth2AuthUri,
                 'authorizeUrl'   => $this->oauth2AuthUri . '/authenticate',
                 'consumerKey'    => $this->getClientId(),
                 'consumerSecret' => $this->getClientSecret()
-            ]
+            )
         );
     }
 
@@ -153,16 +153,16 @@ class MP_Socials_Model_Twitter_Oauth2_Client extends MP_Socials_Model_Oauth2_Cli
      * @throws Exception
      * @throws MP_Socials_Model_Oauth2_Exception
      */
-    protected function httpRequest($uri, $method = Zend_Http_Client::GET, $params = [], $fields = [])
+    protected function httpRequest($uri, $method = Zend_Http_Client::GET, $params = array(), $fields = array())
     {
         /** @var Zend_Oauth_Client $client */
         $client = $this->token->getHttpClient(
-            [
+            array(
                 'callbackUrl'    => $this->getRedirectUri(),
                 'siteUrl'        => $this->oauth2AuthUri,
                 'consumerKey'    => $this->getClientId(),
                 'consumerSecret' => $this->getClientSecret()
-            ],
+            ),
             $uri,
             $this->requestConfig
         );

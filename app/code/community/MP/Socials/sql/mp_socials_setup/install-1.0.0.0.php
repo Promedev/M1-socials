@@ -40,94 +40,94 @@ if (!$installer->getConnection()->isTableExists($tableName)) {
             'entity_id',
             Varien_Db_Ddl_Table::TYPE_INTEGER,
             10,
-            [
+            array(
                 'identity' => true,
                 'unsigned' => true,
                 'nullable' => false,
                 'primary'  => true
-            ],
+            ),
             'Relationship ID'
         )
         ->addColumn(
             'customer_id',
             Varien_Db_Ddl_Table::TYPE_INTEGER,
             10,
-            [
+            array(
                 'unsigned' => true,
                 'nullable' => true
-            ],
+            ),
             'Customer Id'
         )
         ->addColumn(
             'auth_id',
             Varien_Db_Ddl_Table::TYPE_TEXT,
             null,
-            [
+            array(
                 'unsigned' => true,
                 'nullable' => true
-            ],
+            ),
             'Auth ID'
         )
         ->addColumn(
             'auth_token',
             Varien_Db_Ddl_Table::TYPE_TEXT,
             null,
-            [
+            array(
                 'unsigned' => true,
                 'nullable' => true
-            ],
+            ),
             'Auth Token'
         )
         ->addColumn(
             'auth_provider',
             Varien_Db_Ddl_Table::TYPE_TEXT,
             255,
-            [
+            array(
                 'unsigned' => true,
                 'nullable' => true
-            ],
+            ),
             'Auth Provider'
         )
         ->addColumn(
             'store_id',
             Varien_Db_Ddl_Table::TYPE_INTEGER,
             10,
-            [
+            array(
                 'default'  => 0,
                 'unsigned' => true,
                 'nullable' => false
-            ],
+            ),
             'Store'
         )
         ->addColumn(
             'website_id',
             Varien_Db_Ddl_Table::TYPE_INTEGER,
             10,
-            [
+            array(
                 'default'  => 0,
                 'unsigned' => true,
                 'nullable' => false
-            ],
+            ),
             'Website'
         )
         ->addColumn(
             'created_at',
             Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
             null,
-            [
+            array(
                 'nullable' => false,
                 'default'  => Varien_Db_Ddl_Table::TIMESTAMP_INIT
-            ],
+            ),
             'Created At'
         )
         ->addColumn(
             'updated_at',
             Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
             null,
-            [
+            array(
                 'nullable' => false,
                 'default'  => Varien_Db_Ddl_Table::TIMESTAMP_INIT_UPDATE
-            ],
+            ),
             'Updated At'
         );
 

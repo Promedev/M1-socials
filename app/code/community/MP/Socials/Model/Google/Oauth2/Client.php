@@ -56,10 +56,10 @@ class MP_Socials_Model_Google_Oauth2_Client extends MP_Socials_Model_Oauth2_Clie
     /**
      * @var array
      */
-    protected $scope = [
+    protected $scope = array(
         'https://www.googleapis.com/auth/userinfo.profile',
         'https://www.googleapis.com/auth/userinfo.email'
-    ];
+    );
 
     /**
      * @var array
@@ -117,12 +117,12 @@ class MP_Socials_Model_Google_Oauth2_Client extends MP_Socials_Model_Oauth2_Clie
         $response = $this->httpRequest(
             $this->oauth2TokenUri,
             Zend_Http_Client::POST,
-            [
+            array(
                 'client_id'     => $this->getClientId(),
                 'client_secret' => $this->getClientSecret(),
                 'refresh_token' => $this->token->refresh_token,
                 'grant_type'    => 'refresh_token'
-            ]
+            )
         );
 
         $this->token->access_token = $response->access_token;

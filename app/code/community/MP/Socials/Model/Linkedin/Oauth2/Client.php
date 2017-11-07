@@ -55,20 +55,20 @@ class MP_Socials_Model_Linkedin_Oauth2_Client extends MP_Socials_Model_Oauth2_Cl
     /**
      * @var array
      */
-    protected $scope = [
+    protected $scope = array(
         'r_basicprofile',
         'r_emailaddress'
-    ];
+    );
 
     /**
      * @return array
      */
     public function getAccessParams()
     {
-        return [
+        return array(
             'oauth2_access_token' => $this->token->access_token,
             'format'              => 'json'
-        ];
+        );
     }
 
     /**

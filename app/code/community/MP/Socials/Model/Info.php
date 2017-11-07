@@ -54,13 +54,13 @@ abstract class MP_Socials_Model_Info extends Varien_Object
      */
     protected $requestUri    = '';
     protected $requestMethod = Zend_Http_Client::GET;
-    protected $requestParams = [];
-    protected $requestFields = [];
+    protected $requestParams = array();
+    protected $requestFields = array();
 
     /**
      * @var array
      */
-    protected $responseMap = [];
+    protected $responseMap = array();
 
     /**
      * Get client

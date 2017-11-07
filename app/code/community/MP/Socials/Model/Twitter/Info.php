@@ -41,16 +41,16 @@ class MP_Socials_Model_Twitter_Info extends MP_Socials_Model_Info
     /**
      * @var array
      */
-    protected $requestParams = [
+    protected $requestParams = array(
         'skip_status' => true
-    ];
+    );
 
     /**
      * @var array
      */
-    protected $responseMap = [
+    protected $responseMap = array(
         'picture_url' => 'profile_image_url'
-    ];
+    );
 
     /**
      * MP_Socials_Model_Twitter_Info constructor

@@ -55,11 +55,11 @@ class MP_Socials_Model_Facebook_Oauth2_Client extends MP_Socials_Model_Oauth2_Cl
     /**
      * @var array
      */
-    protected $scope = [
+    protected $scope = array(
         'public_profile',
         'email',
         'user_birthday'
-    ];
+    );
 
     /**
      * @param mixed $token
@@ -100,12 +100,12 @@ class MP_Socials_Model_Facebook_Oauth2_Client extends MP_Socials_Model_Oauth2_Cl
         $response = $this->httpRequest(
             $this->oauth2TokenUri,
             Zend_Http_Client::GET,
-            [
+            array(
                 'client_id'         => $this->getClientId(),
                 'client_secret'     => $this->getClientSecret(),
                 'fb_exchange_token' => $this->token->access_token,
                 'grant_type'        => 'fb_exchange_token'
-            ]
+            )
         );
 
         return $this->token = $response;
@@ -123,7 +123,7 @@ class MP_Socials_Model_Facebook_Oauth2_Client extends MP_Socials_Model_Oauth2_Cl
          * ever gets fixed, following condition will not be used anymore.
          */
         if (empty($this->responseDecoded)) {
-            $responseParsed = [];
+            $responseParsed = array();
             parse_str($this->response->getBody(), $responseParsed);
             $this->responseDecoded = json_decode(json_encode($responseParsed));
         }

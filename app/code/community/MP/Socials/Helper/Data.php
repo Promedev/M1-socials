@@ -61,12 +61,12 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * @var array
      */
-    protected $authProviders = [
+    protected $authProviders = array(
         self::GOOGLE_PROVIDER,
         self::FACEBOOK_PROVIDER,
         self::TWITTER_PROVIDER,
         self::LINKEDIN_PROVIDER
-    ];
+    );
 
     /**
      * @var array
@@ -187,7 +187,7 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
         $socials->addFieldToFilter('auth_provider', $this->authProvider);
         $socials->addFieldToFilter('auth_id', $authId);
 
-        $customerIds = [];
+        $customerIds = array();
 
         /** @var MP_Socials_Model_Social $social */
         foreach ($socials as $social) {
@@ -199,7 +199,7 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
 
         /** @var Mage_Customer_Model_Resource_Customer_Collection $collection */
         $collection = $customer->getCollection()
-            ->addAttributeToFilter('entity_id', ['in' => $customerIds])
+            ->addAttributeToFilter('entity_id', array('in' => $customerIds))
             ->setPageSize(1);
 
         if ($customer->getSharingConfig()->isWebsiteScope()) {
@@ -229,7 +229,7 @@ class MP_Socials_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         if ($this->getCustomerSession()->isLoggedIn()) {
-            $collection->addFieldToFilter('entity_id', ['neq' => $this->getCustomerSession()->getCustomerId()]);
+            $collection->addFieldToFilter('entity_id', array('neq' => $this->getCustomerSession()->getCustomerId()));
         }
 
         return $collection;

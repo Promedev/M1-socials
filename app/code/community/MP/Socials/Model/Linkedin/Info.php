@@ -41,14 +41,14 @@ class MP_Socials_Model_Linkedin_Info extends MP_Socials_Model_Info
     /**
      * @var array
      */
-    protected $requestParams = [
+    protected $requestParams = array(
         '~' => ''
-    ];
+    );
 
     /**
      * @var array
      */
-    protected $requestFields = [
+    protected $requestFields = array(
         'id',
         'first-name',
         'last-name',
@@ -56,18 +56,18 @@ class MP_Socials_Model_Linkedin_Info extends MP_Socials_Model_Info
         'picture-url',
         'public-profile-url',
         'site-standard-profile-request'
-    ];
+    );
 
     /**
      * @var array
      */
-    protected $responseMap = [
+    protected $responseMap = array(
         'email'       => 'emailAddress',
         'firstname'   => 'firstName',
         'lastname'    => 'lastName',
         'profile_url' => 'publicProfileUrl',
         'picture_url' => 'pictureUrl'
-    ];
+    );
 
 
     /**
