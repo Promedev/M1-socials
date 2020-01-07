@@ -28,7 +28,7 @@
 <config>
     <modules>
         <MP_Socials>
-            <active>true</active>
+            <active>false</active>
             <codePool>community</codePool>
             <depends>
                 <Mage_Customer/>
